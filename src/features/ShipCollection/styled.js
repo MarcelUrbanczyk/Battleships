@@ -24,3 +24,10 @@ export const FlipButton = styled(FlipIcon)`
   justify-self: flex-end;
   cursor: pointer;
 `;
+
+export const Header = styled.h2`
+  color: white;
+  font-weight: 300;
+  margin: 5px;
+  user-select: none;
+`;
