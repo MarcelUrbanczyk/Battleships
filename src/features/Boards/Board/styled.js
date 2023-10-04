@@ -18,6 +18,21 @@ export const Container = styled.div`
   flex-wrap: wrap;
   width: 400px;
   border: 1px solid rgba(255, 255, 255, 0.5);
-  margin: 40px;
-  box-shadow: rgba(0, 0, 0, 0.5) 0px 3px 8px;
+  margin: 20px 40px 40px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(255, 255, 255, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+`;
+
+export const Owner = styled.p`
+  color: white;
+  font-size: 36px;
+  margin: 10px;
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
