@@ -7,10 +7,11 @@ export const Destroyer = styled.div`
   border-radius: 4px;
   padding: 2px;
   cursor: pointer;
+  transition: 0.3s;
   ${({ flipped }) =>
     flipped &&
     css`
-      transform: rotate(90deg);
+      transform: rotate(-90deg);
     `}
 `;
 
