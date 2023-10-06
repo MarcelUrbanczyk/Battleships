@@ -2,27 +2,27 @@ import { styled, css } from "styled-components";
 import { ReactComponent as FlipIcon } from "./flipIcon.svg";
 
 export const Container = styled.div`
-  padding: 30px;
+  align-items: center;
   border-radius: 8px;
   border: 1px solid white;
-  width: 30%;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  padding: 30px;
+  width: 30%;
 `;
 
 export const ShipWrapper = styled.span`
-  display: flex;
   align-items: center;
+  display: flex;
   gap: 20px;
 `;
 
 export const FlipButton = styled(FlipIcon)`
+  cursor: pointer;
   fill: white;
-  width: 20px;
   height: auto;
   justify-self: flex-end;
-  cursor: pointer;
+  width: 20px;
 `;
 
 export const Header = styled.h2`

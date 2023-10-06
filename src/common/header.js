@@ -1,10 +1,10 @@
 import { styled } from "styled-components";
 
 export const Header = styled.h1`
-  font-family: "Montserrat";
   color: white;
+  font-family: "Montserrat";
   font-size: 64px;
-  text-align: center;
   font-weight: 300;
+  text-align: center;
   user-select: none;
 `;

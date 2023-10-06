@@ -1,13 +1,13 @@
 import { styled, css } from "styled-components";
 
 export const Destroyer = styled.div`
-  height: 10px;
-  width: 40px;
   background-color: white;
   border-radius: 4px;
-  padding: 2px;
   cursor: pointer;
+  height: 10px;
+  padding: 2px;
   transition: 0.3s;
+  width: 40px;
   ${({ flipped }) =>
     flipped &&
     css`
