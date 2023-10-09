@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Container, Block, Owner, Wrapper } from "./styled";
+import React, { useState } from "react";
+import { Container, Block, Owner, Wrapper, RandomButton } from "./styled";
 import { placeShipsRandomly } from "./placeShipsRandomly";
 
 export default ({ owner }) => {
   const size = 10;
-  const [board, setBoard] = useState(Array(size * size));
-
-  useEffect(() => {
-    setBoard(placeShipsRandomly);
-  }, []);
-
+  const [board, setBoard] = useState(Array.from({ length: size * size }));
   return (
     <Wrapper>
       <Owner>{owner}</Owner>
@@ -22,6 +17,11 @@ export default ({ owner }) => {
           ></Block>
         ))}
       </Container>
+      <RandomButton
+        onClick={() => {
+          setBoard(placeShipsRandomly);
+        }}
+      />
     </Wrapper>
   );
 };
