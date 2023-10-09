@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { ReactComponent as diceIcon } from "./diceIcon.svg";
 
 export const Block = styled.div`
   background-color: teal;
@@ -35,4 +36,14 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+`;
+
+export const RandomButton = styled(diceIcon)`
+  max-width: 40px;
+  height: auto;
+  align-self: end;
+  margin-right: 40px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
