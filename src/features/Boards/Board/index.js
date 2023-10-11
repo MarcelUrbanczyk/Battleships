@@ -1,10 +1,26 @@
 import { useEffect } from "react";
-import { Container, Block, Owner, Wrapper, RandomButton } from "./styled";
+import {
+  Container,
+  Block,
+  Owner,
+  Wrapper,
+  RandomButton,
+  Buttons,
+  RestartButton,
+} from "./styled";
 import { placeShip, placeShipsRandomly } from "../../placeShips";
-import { ships } from "../../ships";
+import { removeShipsFromBoard } from "../../removeShipsFromBoard";
 
-export default ({ owner, board, setBoard, draggedShip, flip }) => {
-  console.log(flip);
+export default ({
+  owner,
+  board,
+  setBoard,
+  draggedShip,
+  flip,
+  ships,
+  setShips,
+}) => {
+  const size = 10;
 
   useEffect(() => {
     if (owner === "Computer") {
@@ -33,15 +49,25 @@ export default ({ owner, board, setBoard, draggedShip, flip }) => {
           />
         ))}
       </Container>
-      {owner !== "Computer" ? (
-        <RandomButton
-          onClick={() => {
-            setBoard(placeShipsRandomly);
-          }}
-        />
-      ) : (
-        ""
-      )}
+      <Buttons>
+        {owner !== "Computer" ? (
+          <>
+            <RestartButton
+              onClick={() => {
+                setBoard(Array.from({ length: size * size }).fill(null));
+                setShips(removeShipsFromBoard(ships));
+              }}
+            />
+            <RandomButton
+              onClick={() => {
+                setBoard(placeShipsRandomly);
+              }}
+            />
+          </>
+        ) : (
+          ""
+        )}
+      </Buttons>
     </Wrapper>
   );
 };
