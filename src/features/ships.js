@@ -1,13 +1,13 @@
 export const ships = [
   {
-    name: "Destroyer",
-    size: 4,
-    color: "red",
-  },
-  {
     name: "Thunder",
     size: 5,
     color: "blue",
+  },
+  {
+    name: "Destroyer",
+    size: 4,
+    color: "red",
   },
   {
     name: "Wrecker",
