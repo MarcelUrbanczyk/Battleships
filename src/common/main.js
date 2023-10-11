@@ -6,4 +6,5 @@ export const Main = styled.main`
   justify-content: center;
   margin: auto;
   max-width: 1200px;
+  padding: 0 20px;
 `;
