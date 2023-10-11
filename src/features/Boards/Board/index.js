@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import { useEffect } from "react";
 import { Container, Block, Owner, Wrapper, RandomButton } from "./styled";
-import { placeShip, placeShipsRandomly } from "./placeShips";
+import { placeShip, placeShipsRandomly } from "../../placeShips";
+import { ships } from "../../ships";
 
-export default ({ owner }) => {
-  const size = 10;
-  const [board, setBoard] = useState(
-    Array.from({ length: size * size }).fill(null)
-  );
+export default ({ owner, board, setBoard, draggedShip, flip }) => {
+  console.log(flip);
+
+  useEffect(() => {
+    if (owner === "Computer") {
+      setBoard(placeShipsRandomly);
+    }
+  }, []);
 
   return (
     <Wrapper>
@@ -14,26 +18,30 @@ export default ({ owner }) => {
       <Container>
         {board.map((color, index) => (
           <Block
-            onClick={() => {
-              let newBoard = placeShip(
-                board,
-                index,
-                { name: "Destroyer", size: 4, color: "red" },
-                false
-              );
-              setBoard([...newBoard]);
-            }}
             key={index}
             id={index + 1}
             style={{ backgroundColor: color ? color : "teal" }}
+            onDragOver={(event) => {
+              event.preventDefault();
+            }}
+            onDrop={(event) => {
+              const ship = ships.find((ship) => ship.name === draggedShip.id);
+              const startIndex = event.target.id - 1;
+              const newBoard = placeShip(board, startIndex, ship, flip);
+              setBoard([...newBoard]);
+            }}
           />
         ))}
       </Container>
-      <RandomButton
-        onClick={() => {
-          setBoard(placeShipsRandomly);
-        }}
-      />
+      {owner !== "Computer" ? (
+        <RandomButton
+          onClick={() => {
+            setBoard(placeShipsRandomly);
+          }}
+        />
+      ) : (
+        ""
+      )}
     </Wrapper>
   );
 };
