@@ -40,16 +40,16 @@ export const Wrapper = styled.div`
 `;
 
 export const RandomButton = styled(diceIcon)`
-  width: 40px;
   height: auto;
+  width: 40px;
   &:hover {
     cursor: pointer;
   }
 `;
 
 export const RestartButton = styled(restartIcon)`
-  width: 40px;
   height: auto;
+  width: 40px;
   &:hover {
     cursor: pointer;
   }
@@ -58,9 +58,31 @@ export const RestartButton = styled(restartIcon)`
 export const Buttons = styled.div`
   box-sizing: border-box;
   display: flex;
+  height: 40px;
   justify-content: space-between;
   margin: 20px;
   padding: 0 40px;
   width: 100%;
-  height: 40px;
+`;
+
+export const ReadyButton = styled.button`
+  background-color: #3b4752;
+  border-radius: 6px;
+  border: 1px solid white;
+  color: white;
+  font-family: "Montserrat";
+  font-size: 16px;
+  padding: 10px;
+  transition: 0.3s;
+  &:hover {
+    background-color: #2f3942;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    cursor: pointer;
+  }
+  &:disabled {
+    border-color: #ccc;
+    color: #ccc;
+    cursor: not-allowed;
+  }
 `;
