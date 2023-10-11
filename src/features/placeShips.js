@@ -1,4 +1,4 @@
-import { ships } from "../../ships";
+import { ships } from "./ships";
 
 const isPositionValid = (x, y, isVertical, shipSize, board) => {
   const size = 10;
