@@ -1,5 +1,6 @@
 import { styled } from "styled-components";
 import { ReactComponent as diceIcon } from "../../../icons/diceIcon.svg";
+import { ReactComponent as restartIcon } from "../../../icons/restartIcon.svg";
 
 export const Block = styled.div`
   background-color: teal;
@@ -39,11 +40,27 @@ export const Wrapper = styled.div`
 `;
 
 export const RandomButton = styled(diceIcon)`
-  max-width: 40px;
+  width: 40px;
   height: auto;
-  align-self: end;
-  margin-right: 40px;
   &:hover {
     cursor: pointer;
   }
+`;
+
+export const RestartButton = styled(restartIcon)`
+  width: 40px;
+  height: auto;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const Buttons = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+  padding: 0 40px;
+  width: 100%;
+  height: 40px;
 `;
