@@ -7,6 +7,7 @@ import {
   RandomButton,
   Buttons,
   RestartButton,
+  ReadyButton,
 } from "./styled";
 import { placeShip, placeShipsRandomly } from "../../placeShips";
 import { removeShipsFromBoard } from "../../removeShipsFromBoard";
@@ -38,13 +39,17 @@ export default ({
             id={index + 1}
             style={{ backgroundColor: color ? color : "teal" }}
             onDragOver={(event) => {
-              event.preventDefault();
+              if (owner !== "Computer") {
+                event.preventDefault();
+              }
             }}
             onDrop={(event) => {
-              const ship = ships.find((ship) => ship.name === draggedShip.id);
-              const startIndex = event.target.id - 1;
-              const newBoard = placeShip(board, startIndex, ship, flip);
-              setBoard([...newBoard]);
+              if (owner !== "Computer") {
+                const ship = ships.find((ship) => ship.name === draggedShip.id);
+                const startIndex = event.target.id - 1;
+                const newBoard = placeShip(board, startIndex, ship, flip);
+                setBoard([...newBoard]);
+              }
             }}
           />
         ))}
@@ -58,6 +63,7 @@ export default ({
                 setShips(removeShipsFromBoard(ships));
               }}
             />
+            <ReadyButton disabled={true}>Ready</ReadyButton>
             <RandomButton
               onClick={() => {
                 setBoard(placeShipsRandomly);
