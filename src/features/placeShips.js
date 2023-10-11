@@ -1,4 +1,4 @@
-import { ships } from "./ships";
+import { initialShips } from "./ships";
 
 const isPositionValid = (x, y, isVertical, shipSize, board) => {
   const size = 10;
@@ -36,6 +36,7 @@ export const placeShip = (board, startIndex, ship, isVertical) => {
       const shipIndex = isVertical ? (x + i) * size + y : x * size + y + i;
       board[shipIndex] = shipColor;
     }
+    ship.isDropped = true;
   }
   return board;
 };
@@ -44,7 +45,7 @@ export const placeShipsRandomly = () => {
   const size = 10;
   const newBoard = Array(size * size).fill(null);
 
-  for (const [index, ship] of ships.entries()) {
+  for (const [index, ship] of initialShips.entries()) {
     let isValidPlacement = false;
     let x, y, isVertical;
 
