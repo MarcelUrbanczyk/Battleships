@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { ReactComponent as diceIcon } from "./diceIcon.svg";
+import { ReactComponent as diceIcon } from "../../../icons/diceIcon.svg";
 
 export const Block = styled.div`
   background-color: teal;
