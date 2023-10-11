@@ -25,6 +25,7 @@ export const Container = styled.div`
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   display: flex;
   justify-content: space-between;
+  margin: 0 30px;
   padding: 30px;
   width: 30%;
 `;
@@ -46,6 +47,6 @@ export const FlipButton = styled(FlipIcon)`
 export const Header = styled.h2`
   color: white;
   font-weight: 400;
-  margin: 5px;
+  margin: 5px 30px;
   user-select: none;
 `;
