@@ -1,5 +1,19 @@
 import { styled, css } from "styled-components";
-import { ReactComponent as FlipIcon } from "./flipIcon.svg";
+import { ReactComponent as FlipIcon } from "../../icons/flipIcon.svg";
+
+export const Ship = styled.div`
+  background-color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 10px;
+  padding: 2px;
+  transition: 0.3s;
+  ${({ flipped }) =>
+    flipped &&
+    css`
+      transform: rotate(-90deg);
+    `}
+`;
 
 export const Container = styled.div`
   align-items: center;
