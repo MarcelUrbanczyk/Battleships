@@ -1,19 +1,27 @@
-import { Container, FlipButton, ShipWrapper, Header } from "./styled";
-import { Thunder, Wrecker, Destroyer, Liberty, Sapphire } from "./ships";
-import { useState } from "react";
+import { Container, FlipButton, ShipWrapper, Header, Ship } from "./styled";
+import { ships } from "../ships";
 
-export default () => {
-  const [flip, setFlip] = useState(false);
+export default ({ setDraggedShip, flip, setFlip }) => {
   return (
     <>
       <Header>Ships</Header>
       <Container>
         <ShipWrapper>
-          <Thunder draggable flipped={flip} />
-          <Destroyer draggable flipped={flip} />
-          <Wrecker draggable flipped={flip} />
-          <Liberty draggable flipped={flip} />
-          <Sapphire draggable flipped={flip} />
+          {ships.map((ship) => (
+            <Ship
+              key={ship.name}
+              id={ship.name}
+              draggable
+              flipped={flip}
+              style={{
+                backgroundColor: ship.color,
+                width: `${ship.size * 10}px`,
+              }}
+              onDragStart={(event) => {
+                setDraggedShip(event.target);
+              }}
+            />
+          ))}
         </ShipWrapper>
         <FlipButton
           onClick={() => {
