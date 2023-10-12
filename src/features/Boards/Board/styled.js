@@ -5,12 +5,12 @@ import { ReactComponent as restartIcon } from "../../../icons/restartIcon.svg";
 export const Block = styled.div`
   background-color: teal;
   border: 1px solid rgba(255, 255, 255, 0.5);
-  height: 38px;
+  box-sizing: border-box;
+  height: 40px;
   transition: 0.3s;
-  width: 38px;
+  width: 40px;
   &:hover {
     background-color: #006666;
-    cursor: pointer;
     transform: scale(1.1);
   }
 `;
@@ -24,6 +24,9 @@ export const Container = styled.div`
   flex-wrap: wrap;
   margin: 20px 40px 40px;
   width: 400px;
+  &:hover {
+    cursor: crosshair;
+  }
 `;
 
 export const Owner = styled.p`
