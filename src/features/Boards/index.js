@@ -11,6 +11,12 @@ export default ({
   ships2,
   setShips1,
   setShips2,
+  isPlayer1Turn,
+  setIsPlayer1Turn,
+  isGameStarted,
+  setIsGameStarted,
+  isGameOver,
+  setIsGameOver,
 }) => (
   <Wrapper>
     <Board
@@ -21,6 +27,12 @@ export default ({
       flip={flip}
       ships={ships1}
       setShips={setShips1}
+      isPlayer1Turn={isPlayer1Turn}
+      setIsPlayer1Turn={setIsPlayer1Turn}
+      isGameStarted={isGameStarted}
+      setIsGameStarted={setIsGameStarted}
+      isGameOver={isGameOver}
+      setIsGameOver={setIsGameOver}
     />
     <Board
       owner="Computer"
@@ -28,6 +40,12 @@ export default ({
       setBoard={setBoard2}
       ships={ships2}
       setShips={setShips2}
+      isPlayer1Turn={isPlayer1Turn}
+      setIsPlayer1Turn={setIsPlayer1Turn}
+      isGameStarted={isGameStarted}
+      setIsGameStarted={setIsGameStarted}
+      isGameOver={isGameOver}
+      setIsGameOver={setIsGameOver}
     />
   </Wrapper>
 );

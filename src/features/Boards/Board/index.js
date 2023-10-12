@@ -10,7 +10,7 @@ import {
   ReadyButton,
 } from "./styled";
 import { placeShip, placeShipsRandomly } from "../../placeShips";
-import { setIsDroppedTrue } from "../../setIsDropped";
+import { setIsDroppedFalse, setIsDroppedTrue } from "../../setIsDropped";
 import { isEveryShipDropped } from "../../isEveryShipDropped";
 import { getShipColor } from "../../getShipColor";
 import { setShipSunk } from "../../setShipSunk";
@@ -25,6 +25,12 @@ export default ({
   flip,
   ships,
   setShips,
+  isPlayer1Turn,
+  setIsPlayer1Turn,
+  isGameStarted,
+  setIsGameStarted,
+  isGameOver,
+  setIsGameOver,
 }) => {
   const size = 10;
 
@@ -42,8 +48,15 @@ export default ({
           <Block
             key={index}
             id={index + 1}
-            className={`${shipName} ${owner}`}
-            style={{ backgroundColor: getShipColor(shipName, owner, ships) }}
+            className={`${shipName ? shipName : ""} ${owner}`}
+            style={{
+              backgroundColor: getShipColor(
+                shipName,
+                owner,
+                ships,
+                isGameStarted
+              ),
+            }}
             onDragOver={(event) => {
               if (owner !== "Computer") {
                 event.preventDefault();
@@ -51,29 +64,38 @@ export default ({
             }}
             onDrop={(event) => {
               if (owner !== "Computer") {
-                const ship = getShipByName(draggedShip.id);
+                const ship = getShipByName(ships, draggedShip.id);
                 const startIndex = event.target.id - 1;
                 const newBoard = placeShip(board, startIndex, ship, flip);
                 setBoard([...newBoard]);
               }
             }}
             onClick={(event) => {
-              event.target.classList.add("hit");
-              setShips([...setShipSunk(event.target.classList, owner, ships)]);
+              if (isGameStarted && owner === "Computer") {
+                event.target.classList.add("hit");
+                setShips([
+                  ...setShipSunk(event.target.classList, owner, ships),
+                ]);
+              }
             }}
           />
         ))}
       </Container>
       <Buttons>
-        {owner !== "Computer" ? (
+        {owner !== "Computer" && !isGameStarted ? (
           <>
             <RestartButton
               onClick={() => {
                 setBoard(Array.from({ length: size * size }).fill(null));
-                setShips([...initialShips]);
+                setShips(setIsDroppedFalse([...initialShips]));
               }}
             />
-            <ReadyButton disabled={!isEveryShipDropped(ships)}>
+            <ReadyButton
+              disabled={!isEveryShipDropped(ships)}
+              onClick={() => {
+                setIsGameStarted(true);
+              }}
+            >
               Ready
             </ReadyButton>
             <RandomButton
