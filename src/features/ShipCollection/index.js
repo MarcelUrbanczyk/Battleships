@@ -1,8 +1,8 @@
 import { Container, FlipButton, ShipWrapper, Header, Ship } from "./styled";
+import { isEveryShipDropped } from "../isEveryShipDropped";
 
 export default ({ setDraggedShip, flip, setFlip, ships }) => {
-  const isEveryShipDropped = ships.every((ship) => ship.isDropped === true);
-  if (!isEveryShipDropped)
+  if (!isEveryShipDropped(ships))
     return (
       <>
         <Header>Ships</Header>
