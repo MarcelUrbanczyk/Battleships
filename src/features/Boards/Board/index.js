@@ -10,10 +10,10 @@ import {
   ReadyButton,
 } from "./styled";
 import { placeShip, placeShipsRandomly } from "../../placeShips";
-import { setIsDroppedTrue, setIsDroppedFalse } from "../../setIsDropped";
+import { setIsDroppedTrue } from "../../setIsDropped";
 import { isEveryShipDropped } from "../../isEveryShipDropped";
 import { getShipColor } from "../../getShipColor";
-import { setShipSunk, setShipSunkFalse } from "../../setShipSunk";
+import { setShipSunk } from "../../setShipSunk";
 import { getShipByName } from "../../getShipByName";
 import { initialShips } from "../../ships";
 
@@ -70,6 +70,7 @@ export default ({
             <RestartButton
               onClick={() => {
                 setBoard(Array.from({ length: size * size }).fill(null));
+                setShips([...initialShips]);
               }}
             />
             <ReadyButton disabled={!isEveryShipDropped(ships)}>
@@ -78,7 +79,7 @@ export default ({
             <RandomButton
               onClick={() => {
                 setBoard(placeShipsRandomly);
-                setShips(setIsDroppedTrue(ships));
+                setShips(setIsDroppedTrue([...initialShips]));
               }}
             />
           </>
