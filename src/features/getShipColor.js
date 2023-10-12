@@ -1,4 +1,4 @@
-export const getShipColor = (shipName, owner, ships) => {
+export const getShipColor = (shipName, owner, ships, is) => {
   if (owner !== "Computer") {
     const ship = ships.find((ship) => ship.name === shipName);
     if (ship && ship.isSunk) {
@@ -9,5 +9,15 @@ export const getShipColor = (shipName, owner, ships) => {
       return color;
     }
   }
-  return;
+
+  if (owner === "Computer") {
+    const ship = ships.find((ship) => ship.name === shipName);
+    if (ship && ship.isSunk) {
+      const color = "grey";
+      return color;
+    } else if (ship && !ship.isSunk) {
+      const color = "teal";
+      return color;
+    }
+  }
 };
