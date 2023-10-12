@@ -1,3 +1,3 @@
 export const getShipByName = (ships, shipName) => {
-  ships.find((ship) => ship.name === shipName);
+  return ships.find((ship) => ship.name === shipName);
 };
