@@ -3,49 +3,46 @@ import Board from "./Board";
 export default ({
   board1,
   board2,
-  setBoard1,
-  setBoard2,
   draggedShip,
   flip,
   ships1,
   ships2,
-  setShips1,
-  setShips2,
   isPlayer1Turn,
-  setIsPlayer1Turn,
   isGameStarted,
-  setIsGameStarted,
   isGameOver,
-  setIsGameOver,
+  setGameState,
+  gameState,
 }) => (
   <Wrapper>
     <Board
       owner="Player 1"
       draggedShip={draggedShip}
+      board1={board1}
+      board2={board2}
       board={board1}
-      setBoard={setBoard1}
       flip={flip}
+      ships1={ships1}
+      ships2={ships2}
       ships={ships1}
-      setShips={setShips1}
       isPlayer1Turn={isPlayer1Turn}
-      setIsPlayer1Turn={setIsPlayer1Turn}
       isGameStarted={isGameStarted}
-      setIsGameStarted={setIsGameStarted}
       isGameOver={isGameOver}
-      setIsGameOver={setIsGameOver}
+      setGameState={setGameState}
+      gameState={gameState}
     />
     <Board
       owner="Computer"
+      board1={board1}
+      board2={board2}
       board={board2}
-      setBoard={setBoard2}
+      ships1={ships1}
+      ships2={ships2}
       ships={ships2}
-      setShips={setShips2}
       isPlayer1Turn={isPlayer1Turn}
-      setIsPlayer1Turn={setIsPlayer1Turn}
       isGameStarted={isGameStarted}
-      setIsGameStarted={setIsGameStarted}
       isGameOver={isGameOver}
-      setIsGameOver={setIsGameOver}
+      setGameState={setGameState}
+      gameState={gameState}
     />
   </Wrapper>
 );

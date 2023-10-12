@@ -3,25 +3,35 @@ import { Main } from "../common/main";
 import Boards from "../features/Boards";
 import ShipCollection from "../features/ShipCollection";
 import { useState } from "react";
-import { initialShips } from "../features/ships";
+import { initialShips } from "../features/initialShips";
+import { initialBoard } from "../features/initialBoard";
 
 const App = () => {
-  const size = 10;
+  const [gameState, setGameState] = useState({
+    ships1: [...initialShips],
+    ships2: [...initialShips],
+    isGameStarted: false,
+    isGameOver: false,
+    isPlayer1Turn: false,
+    flip: false,
+    draggedShip: null,
+    board1: [...initialBoard],
+    board2: [...initialBoard],
+  });
 
-  const [ships1, setShips1] = useState([...initialShips]);
-  const [ships2, setShips2] = useState([...initialShips]);
+  console.log(gameState);
 
-  const [flip, setFlip] = useState(false);
-
-  const [draggedShip, setDraggedShip] = useState(null);
-
-  const [board1, setBoard1] = useState(
-    Array.from({ length: size * size }).fill(null)
-  );
-
-  const [board2, setBoard2] = useState(
-    Array.from({ length: size * size }).fill(null)
-  );
+  const {
+    ships1,
+    ships2,
+    isGameStarted,
+    isGameOver,
+    isPlayer1Turn,
+    flip,
+    draggedShip,
+    board1,
+    board2,
+  } = gameState;
 
   return (
     <>
@@ -30,20 +40,21 @@ const App = () => {
         <Boards
           board1={board1}
           board2={board2}
-          setBoard1={setBoard1}
-          setBoard2={setBoard2}
           draggedShip={draggedShip}
           flip={flip}
           ships1={ships1}
           ships2={ships2}
-          setShips1={setShips1}
-          setShips2={setShips2}
+          isPlayer1Turn={isPlayer1Turn}
+          isGameStarted={isGameStarted}
+          isGameOver={isGameOver}
+          gameState={gameState}
+          setGameState={setGameState}
         />
         <ShipCollection
-          setDraggedShip={setDraggedShip}
           flip={flip}
-          setFlip={setFlip}
           ships={ships1}
+          gameState={gameState}
+          setGameState={setGameState}
         />
       </Main>
     </>

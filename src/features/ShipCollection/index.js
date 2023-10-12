@@ -1,7 +1,7 @@
 import { Container, FlipButton, ShipWrapper, Header, Ship } from "./styled";
 import { isEveryShipDropped } from "../isEveryShipDropped";
 
-export default ({ setDraggedShip, flip, setFlip, ships }) => {
+export default ({ flip, ships, setGameState, gameState }) => {
   if (!isEveryShipDropped(ships))
     return (
       <>
@@ -21,7 +21,7 @@ export default ({ setDraggedShip, flip, setFlip, ships }) => {
                       width: `${ship.size * 10}px`,
                     }}
                     onDragStart={(event) => {
-                      setDraggedShip(event.target);
+                      setGameState({ ...gameState, draggedShip: event.target });
                     }}
                   />
                 );
@@ -31,7 +31,7 @@ export default ({ setDraggedShip, flip, setFlip, ships }) => {
           </ShipWrapper>
           <FlipButton
             onClick={() => {
-              setFlip(!flip);
+              setGameState({ ...gameState, flip: !flip });
             }}
           />
         </Container>

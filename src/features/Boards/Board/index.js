@@ -15,28 +15,30 @@ import { isEveryShipDropped } from "../../isEveryShipDropped";
 import { getShipColor } from "../../getShipColor";
 import { setShipSunk } from "../../setShipSunk";
 import { getShipByName } from "../../getShipByName";
-import { initialShips } from "../../ships";
+import { initialShips } from "../../initialShips";
+import { initialBoard } from "../../initialBoard";
 
 export default ({
   owner,
+  board1,
+  board2,
   board,
-  setBoard,
   draggedShip,
   flip,
+  ships1,
+  ships2,
   ships,
-  setShips,
   isPlayer1Turn,
-  setIsPlayer1Turn,
   isGameStarted,
-  setIsGameStarted,
   isGameOver,
-  setIsGameOver,
+  gameState,
+  setGameState,
 }) => {
   const size = 10;
 
   useEffect(() => {
     if (owner === "Computer") {
-      setBoard(placeShipsRandomly);
+      setGameState({ ...gameState, board2: placeShipsRandomly() });
     }
   }, []);
 
@@ -67,15 +69,23 @@ export default ({
                 const ship = getShipByName(ships, draggedShip.id);
                 const startIndex = event.target.id - 1;
                 const newBoard = placeShip(board, startIndex, ship, flip);
-                setBoard([...newBoard]);
+                if (owner === "Player 1") {
+                  setGameState({ ...gameState, board1: [...newBoard] });
+                } else {
+                  setGameState({ ...gameState, board2: [...newBoard] });
+                }
               }
             }}
             onClick={(event) => {
               if (isGameStarted && owner === "Computer") {
                 event.target.classList.add("hit");
-                setShips([
-                  ...setShipSunk(event.target.classList, owner, ships),
-                ]);
+
+                setGameState({
+                  ...gameState,
+                  ships2: [
+                    ...setShipSunk(event.target.classList, owner, ships),
+                  ],
+                });
               }
             }}
           />
@@ -86,22 +96,44 @@ export default ({
           <>
             <RestartButton
               onClick={() => {
-                setBoard(Array.from({ length: size * size }).fill(null));
-                setShips(setIsDroppedFalse([...initialShips]));
+                if (owner === "Player 1") {
+                  setGameState({
+                    ...gameState,
+                    board1: [...initialBoard],
+                    ships1: setIsDroppedFalse([...initialShips]),
+                  });
+                } else {
+                  setGameState({
+                    ...gameState,
+                    board2: [...initialBoard],
+                    ships2: setIsDroppedFalse([...initialShips]),
+                  });
+                }
               }}
             />
             <ReadyButton
               disabled={!isEveryShipDropped(ships)}
               onClick={() => {
-                setIsGameStarted(true);
+                setGameState({ ...gameState, isGameStarted: true });
               }}
             >
               Ready
             </ReadyButton>
             <RandomButton
               onClick={() => {
-                setBoard(placeShipsRandomly);
-                setShips(setIsDroppedTrue([...initialShips]));
+                if (owner === "Player 1") {
+                  setGameState({
+                    ...gameState,
+                    board1: placeShipsRandomly(),
+                    ships1: setIsDroppedTrue([...initialShips]),
+                  });
+                } else {
+                  setGameState({
+                    ...gameState,
+                    board2: placeShipsRandomly(),
+                    ships2: setIsDroppedTrue([...initialShips]),
+                  });
+                }
               }}
             />
           </>
