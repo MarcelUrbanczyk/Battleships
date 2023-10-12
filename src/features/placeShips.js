@@ -32,9 +32,9 @@ export const placeShip = (board, startIndex, ship, isVertical) => {
 
   if (isPositionValid(x, y, isVertical, ship.size, board)) {
     for (let i = 0; i < ship.size; i++) {
-      const shipColor = ship.color;
+      const shipName = ship.name;
       const shipIndex = isVertical ? (x + i) * size + y : x * size + y + i;
-      board[shipIndex] = shipColor;
+      board[shipIndex] = ship.name;
     }
     ship.isDropped = true;
   }
