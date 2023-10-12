@@ -10,7 +10,12 @@ import {
   ReadyButton,
 } from "./styled";
 import { placeShip, placeShipsRandomly } from "../../placeShips";
-import { removeShipsFromBoard } from "../../removeShipsFromBoard";
+import { setIsDroppedTrue, setIsDroppedFalse } from "../../setIsDropped";
+import { isEveryShipDropped } from "../../isEveryShipDropped";
+import { getShipColor } from "../../getShipColor";
+import { setShipSunk, setShipSunkFalse } from "../../setShipSunk";
+import { getShipByName } from "../../getShipByName";
+import { initialShips } from "../../ships";
 
 export default ({
   owner,
@@ -33,11 +38,12 @@ export default ({
     <Wrapper>
       <Owner>{owner}</Owner>
       <Container>
-        {board.map((color, index) => (
+        {board.map((shipName, index) => (
           <Block
             key={index}
             id={index + 1}
-            style={{ backgroundColor: color ? color : "teal" }}
+            className={`${shipName} ${owner}`}
+            style={{ backgroundColor: getShipColor(shipName, owner, ships) }}
             onDragOver={(event) => {
               if (owner !== "Computer") {
                 event.preventDefault();
@@ -45,11 +51,15 @@ export default ({
             }}
             onDrop={(event) => {
               if (owner !== "Computer") {
-                const ship = ships.find((ship) => ship.name === draggedShip.id);
+                const ship = getShipByName(draggedShip.id);
                 const startIndex = event.target.id - 1;
                 const newBoard = placeShip(board, startIndex, ship, flip);
                 setBoard([...newBoard]);
               }
+            }}
+            onClick={(event) => {
+              event.target.classList.add("hit");
+              setShips([...setShipSunk(event.target.classList, owner, ships)]);
             }}
           />
         ))}
@@ -60,13 +70,15 @@ export default ({
             <RestartButton
               onClick={() => {
                 setBoard(Array.from({ length: size * size }).fill(null));
-                setShips(removeShipsFromBoard(ships));
               }}
             />
-            <ReadyButton disabled={true}>Ready</ReadyButton>
+            <ReadyButton disabled={!isEveryShipDropped(ships)}>
+              Ready
+            </ReadyButton>
             <RandomButton
               onClick={() => {
                 setBoard(placeShipsRandomly);
+                setShips(setIsDroppedTrue(ships));
               }}
             />
           </>
