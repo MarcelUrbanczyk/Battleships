@@ -27,7 +27,7 @@ export default ({
   flip,
   ships1,
   ships2,
-  ships,
+  ownerShips,
   isPlayer1Turn,
   isGameStarted,
   isGameOver,
@@ -55,7 +55,7 @@ export default ({
               backgroundColor: getShipColor(
                 shipName,
                 owner,
-                ships,
+                ownerShips,
                 isGameStarted
               ),
             }}
@@ -66,7 +66,7 @@ export default ({
             }}
             onDrop={(event) => {
               if (owner !== "Computer") {
-                const ship = getShipByName(ships, draggedShip.id);
+                const ship = getShipByName(ownerShips, draggedShip.id);
                 const startIndex = event.target.id - 1;
                 const newBoard = placeShip(board, startIndex, ship, flip);
                 if (owner === "Player 1") {
@@ -83,7 +83,7 @@ export default ({
                 setGameState({
                   ...gameState,
                   ships2: [
-                    ...setShipSunk(event.target.classList, owner, ships),
+                    ...setShipSunk(event.target.classList, owner, ownerShips),
                   ],
                 });
               }
@@ -112,7 +112,7 @@ export default ({
               }}
             />
             <ReadyButton
-              disabled={!isEveryShipDropped(ships)}
+              disabled={!isEveryShipDropped(ownerShips)}
               onClick={() => {
                 setGameState({ ...gameState, isGameStarted: true });
               }}

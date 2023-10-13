@@ -23,7 +23,7 @@ export default ({
       flip={flip}
       ships1={ships1}
       ships2={ships2}
-      ships={ships1}
+      ownerShips={ships1}
       isPlayer1Turn={isPlayer1Turn}
       isGameStarted={isGameStarted}
       isGameOver={isGameOver}
@@ -37,7 +37,7 @@ export default ({
       board={board2}
       ships1={ships1}
       ships2={ships2}
-      ships={ships2}
+      ownerShips={ships2}
       isPlayer1Turn={isPlayer1Turn}
       isGameStarted={isGameStarted}
       isGameOver={isGameOver}
