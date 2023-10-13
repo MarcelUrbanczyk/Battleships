@@ -1,37 +1,16 @@
+class Ship {
+  constructor(name, size, color) {
+    this.name = name;
+    this.size = size;
+    this.color = color;
+    this.isDropped = false;
+    this.isSunk = false;
+  }
+}
 export const initialShips = [
-  {
-    name: "Thunder",
-    size: 5,
-    color: "blue",
-    isDropped: false,
-    isSunk: false,
-  },
-  {
-    name: "Destroyer",
-    size: 4,
-    color: "red",
-    isDropped: false,
-    isSunk: false,
-  },
-  {
-    name: "Wrecker",
-    size: 3,
-    color: "green",
-    isDropped: false,
-    isSunk: false,
-  },
-  {
-    name: "Liberty",
-    size: 3,
-    color: "orange",
-    isDropped: false,
-    isSunk: false,
-  },
-  {
-    name: "Sapphire",
-    size: 2,
-    color: "purple",
-    isDropped: false,
-    isSunk: false,
-  },
+  new Ship("Thunder", 5, "blue"),
+  new Ship("Destroyer", 4, "yellow"),
+  new Ship("Wrecker", 3, "green"),
+  new Ship("Liberty", 3, "orange"),
+  new Ship("Sapphire", 2, "purple"),
 ];
