@@ -12,33 +12,35 @@ import {
 import { placeShip, placeShipsRandomly } from "../../placeShips";
 import { setIsDroppedFalse, setIsDroppedTrue } from "../../setIsDropped";
 import { isEveryShipDropped } from "../../isEveryShipDropped";
-import { getShipColor } from "../../getShipColor";
+import { getBlockColor } from "../../getBlockColor";
 import { setShipSunk } from "../../setShipSunk";
-import { getShipByName } from "../../getShipByName";
+import { getShipByName } from "../../getShip";
 import { initialShips } from "../../initialShips";
 import { initialBoard } from "../../initialBoard";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setShips,
+  toggleIsGameStarted,
+  toggleIsPlayer1Turn,
+  setBoard,
+  selectDraggedShip,
+  selectFlip,
+  selectIsGameStarted,
+  selectIsPlayer1Turn,
+} from "../../gameSlice";
+import { randomHit } from "../../randomHit";
 
-export default ({
-  owner,
-  board1,
-  board2,
-  board,
-  draggedShip,
-  flip,
-  ships1,
-  ships2,
-  ownerShips,
-  isPlayer1Turn,
-  isGameStarted,
-  isGameOver,
-  gameState,
-  setGameState,
-}) => {
-  const size = 10;
+export default ({ owner, ownerBoard, ownerShips }) => {
+  const dispatch = useDispatch();
+  const draggedShip = useSelector(selectDraggedShip);
+  const flip = useSelector(selectFlip);
+  const isGameStarted = useSelector(selectIsGameStarted);
+  const isPlayer1Turn = useSelector(selectIsPlayer1Turn);
 
   useEffect(() => {
-    if (owner === "Computer") {
-      setGameState({ ...gameState, board2: placeShipsRandomly() });
+    if (owner === "Player2") {
+      const randomBoard = placeShipsRandomly();
+      dispatch(setBoard({ boardNumber: 2, content: [...randomBoard] }));
     }
   }, []);
 
@@ -46,93 +48,153 @@ export default ({
     <Wrapper>
       <Owner>{owner}</Owner>
       <Container>
-        {board.map((shipName, index) => (
-          <Block
-            key={index}
-            id={index + 1}
-            className={`${shipName ? shipName : ""} ${owner}`}
-            style={{
-              backgroundColor: getShipColor(
-                shipName,
-                owner,
-                ownerShips,
-                isGameStarted
-              ),
-            }}
-            onDragOver={(event) => {
-              if (owner !== "Computer") {
+        {ownerBoard &&
+          ownerBoard.map((shipName, index) => (
+            <Block
+              key={index}
+              id={index + 1}
+              className={`${shipName ? shipName : ""} ${owner}`}
+              style={{
+                backgroundColor: getBlockColor(
+                  owner,
+                  ownerShips,
+                  index + 1,
+                  shipName
+                ),
+              }}
+              onDragOver={(event) => {
                 event.preventDefault();
-              }
-            }}
-            onDrop={(event) => {
-              if (owner !== "Computer") {
-                const ship = getShipByName(ownerShips, draggedShip.id);
-                const startIndex = event.target.id - 1;
-                const newBoard = placeShip(board, startIndex, ship, flip);
-                if (owner === "Player 1") {
-                  setGameState({ ...gameState, board1: [...newBoard] });
-                } else {
-                  setGameState({ ...gameState, board2: [...newBoard] });
-                }
-              }
-            }}
-            onClick={(event) => {
-              if (isGameStarted && owner === "Computer") {
-                event.target.classList.add("hit");
+              }}
+              onDrop={(event) => {
+                const ship = getShipByName(ownerShips, draggedShip.name);
+                const shipIndex = ownerShips.findIndex(
+                  (ship) => ship.name === draggedShip.name
+                );
+                const newShips = [...ownerShips];
+                newShips[shipIndex] = {
+                  ...newShips[shipIndex],
+                  isDropped: true,
+                };
 
-                setGameState({
-                  ...gameState,
-                  ships2: [
-                    ...setShipSunk(event.target.classList, owner, ownerShips),
-                  ],
-                });
-              }
-            }}
-          />
-        ))}
+                const startIndex = event.target.id - 1;
+                const oldBoard = [...ownerBoard];
+                const newBoard = placeShip(oldBoard, startIndex, ship, flip);
+                if (owner === "Player1") {
+                  dispatch(
+                    setBoard({ boardNumber: 1, content: [...newBoard] })
+                  );
+                  dispatch(
+                    setShips({ shipsNumber: 1, content: [...newShips] })
+                  );
+                } else {
+                  dispatch(
+                    setBoard({ boardNumber: 2, content: [...newBoard] })
+                  );
+                  dispatch(
+                    setShips({ shipsNumber: 2, content: [...newShips] })
+                  );
+                }
+              }}
+              onClick={(event) => {
+                if (
+                  isGameStarted &&
+                  owner === "Player2" &&
+                  isPlayer1Turn &&
+                  !event.target.classList.contains("hit")
+                ) {
+                  event.target.classList.add("hit");
+                  dispatch(
+                    setShips({
+                      shipsNumber: 2,
+                      content: [
+                        ...setShipSunk(
+                          event.target.classList,
+                          owner,
+                          ownerShips
+                        ),
+                      ],
+                    })
+                  );
+                  dispatch(toggleIsPlayer1Turn());
+                  setTimeout(() => {
+                    randomHit("Player 1");
+                  }, 2000);
+                  dispatch(toggleIsPlayer1Turn());
+                }
+              }}
+            />
+          ))}
       </Container>
       <Buttons>
-        {owner !== "Computer" && !isGameStarted ? (
+        {owner === "Player1" && !isGameStarted ? (
           <>
             <RestartButton
               onClick={() => {
-                if (owner === "Player 1") {
-                  setGameState({
-                    ...gameState,
-                    board1: [...initialBoard],
-                    ships1: setIsDroppedFalse([...initialShips]),
-                  });
+                if (owner === "Player1") {
+                  dispatch(
+                    setShips({
+                      shipsNumber: 1,
+                      content: [...setIsDroppedFalse(initialShips)],
+                    })
+                  );
+                  dispatch(
+                    setBoard({
+                      boardNumber: 1,
+                      content: [...initialBoard],
+                    })
+                  );
                 } else {
-                  setGameState({
-                    ...gameState,
-                    board2: [...initialBoard],
-                    ships2: setIsDroppedFalse([...initialShips]),
-                  });
+                  dispatch(
+                    setShips({
+                      shipsNumber: 2,
+                      content: [...setIsDroppedFalse(initialShips)],
+                    })
+                  );
+                  dispatch(
+                    setBoard({
+                      boardNumber: 2,
+                      content: [...initialBoard],
+                    })
+                  );
                 }
               }}
             />
             <ReadyButton
               disabled={!isEveryShipDropped(ownerShips)}
               onClick={() => {
-                setGameState({ ...gameState, isGameStarted: true });
+                dispatch(toggleIsGameStarted());
               }}
             >
               Ready
             </ReadyButton>
             <RandomButton
               onClick={() => {
-                if (owner === "Player 1") {
-                  setGameState({
-                    ...gameState,
-                    board1: placeShipsRandomly(),
-                    ships1: setIsDroppedTrue([...initialShips]),
-                  });
+                if (owner === "Player1") {
+                  dispatch(
+                    setShips({
+                      shipsNumber: 1,
+                      content: [...setIsDroppedTrue(initialShips)],
+                    })
+                  );
+                  dispatch(
+                    setBoard({
+                      boardNumber: 1,
+                      content: placeShipsRandomly(),
+                    })
+                  );
                 } else {
-                  setGameState({
-                    ...gameState,
-                    board2: placeShipsRandomly(),
-                    ships2: setIsDroppedTrue([...initialShips]),
-                  });
+                  dispatch(
+                    setShips({
+                      shipsNumber: 2,
+                      content: [...setIsDroppedTrue(initialShips)],
+                    })
+                  );
+                  dispatch(
+                    setBoard({
+                      boardNumber: 2,
+                      content: placeShipsRandomly(),
+                    })
+                  );
                 }
               }}
             />
