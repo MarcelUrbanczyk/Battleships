@@ -1,7 +1,7 @@
 export const setShipSunk = (classList, owner, ships) => {
   let newShips = [...ships];
   let sunkPartsCounter = 0;
-  newShips.forEach((ship) => {
+  newShips.forEach((ship, index) => {
     if (classList.contains(ship.name)) {
       const shipBlocks = document.getElementsByClassName(
         `${ship.name} ${owner}`
@@ -14,10 +14,10 @@ export const setShipSunk = (classList, owner, ships) => {
       }
 
       if (sunkPartsCounter === shipBlocks.length) {
-        ship.isSunk = true;
+        newShips[index] = { ...ship, isSunk: true };
         return newShips;
       }
     }
   });
-  return ships;
+  return newShips;
 };
