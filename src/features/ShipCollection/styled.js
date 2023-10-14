@@ -27,7 +27,6 @@ export const Container = styled.div`
   justify-content: space-between;
   margin: 0 30px;
   padding: 30px;
-  width: 30%;
 `;
 
 export const ShipWrapper = styled.span`
