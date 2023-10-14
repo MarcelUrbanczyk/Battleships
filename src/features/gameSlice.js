@@ -23,6 +23,7 @@ const gameSlice = createSlice({
     board1: [...initialBoard],
     board2: [...initialBoard],
 
+    winner: null,
     isGameStarted: false,
     isGameOver: false,
     isPlayer1Turn: true,
@@ -43,6 +44,9 @@ const gameSlice = createSlice({
     toggleIsGameStarted: (state) => {
       state.isGameStarted = !state.isGameStarted;
     },
+    toggleIsGameOver: (state) => {
+      state.isGameOver = !state.isGameOver;
+    },
     setBoard: (state, action) => {
       const { boardNumber, content } = action.payload;
       if (boardNumber === 1) {
@@ -59,6 +63,9 @@ const gameSlice = createSlice({
         state.ships2 = content;
       }
     },
+    setWinner: (state, { payload: winner }) => {
+      state.winner = winner;
+    },
   },
 });
 
@@ -72,14 +79,17 @@ export const selectIsGameOver = (state) => selectGame(state).isGameOver;
 export const selectIsPlayer1Turn = (state) => selectGame(state).isPlayer1Turn;
 export const selectFlip = (state) => selectGame(state).flip;
 export const selectDraggedShip = (state) => selectGame(state).draggedShip;
+export const selectWinner = (state) => selectGame(state).winner;
 
 export const {
   setDraggedShip,
   toggleIsPlayer1Turn,
   toggleIsGameStarted,
+  toggleIsGameOver,
   toggleFlip,
   setBoard,
   setShips,
+  setWinner,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;
