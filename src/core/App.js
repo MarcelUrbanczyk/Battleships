@@ -1,9 +1,10 @@
 import { Header } from "../features/header";
 import { Main } from "../features/main";
-import Info from "../features/Info";
+import GamePanel from "../features/GamePanel";
 import ShipCollection from "../features/ShipCollection";
 import Controls from "../features/Controls";
 import Board from "../features/Board";
+import Start from "../features/Start";
 import ShipsStatus from "../features/ShipsStatus";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -37,7 +38,7 @@ const App = () => {
   }, [isPlayer1BoardSet, isPlayer2BoardSet]);
 
   if (
-    gameMode !== "multiplayer" ||
+    (gameMode && gameMode !== "multiplayer") ||
     (gameMode === "multiplayer" && isGameStarted)
   ) {
     return (
@@ -61,7 +62,7 @@ const App = () => {
               ""
             )}
           </span>
-          <Info />
+          <GamePanel />
           <span>
             <Board owner="Player 2" ownerBoard={board2} ownerShips={ships2} />
             {isGameStarted || gameMode === "simulation" ? (
@@ -81,34 +82,44 @@ const App = () => {
         </Main>
       </>
     );
-  } else {
+  } else if (gameMode === "multiplayer") {
     return (
       <>
         <Header>Battleships</Header>
-        <Main></Main>
-        {isPlayer1BoardSet ? (
-          <SetBoardWrapper>
-            <Board
-              owner="Player 2"
-              ownerBoard={board2}
-              ownerShips={ships2}
-              header="Player 2, set your board"
-            />
-            <Controls owner="Player 2" />
-            <ShipCollection owner="Player 2" />
-          </SetBoardWrapper>
-        ) : (
-          <SetBoardWrapper>
-            <Board
-              owner="Player 1"
-              ownerBoard={board1}
-              ownerShips={ships1}
-              header="Player 1, set your board"
-            />
-            <Controls owner="Player 1" />
-            <ShipCollection owner="Player 1" />
-          </SetBoardWrapper>
-        )}
+        <Main>
+          {isPlayer1BoardSet ? (
+            <SetBoardWrapper>
+              <Board
+                owner="Player 2"
+                ownerBoard={board2}
+                ownerShips={ships2}
+                header="Player 2, set your board"
+              />
+              <Controls owner="Player 2" />
+              <ShipCollection owner="Player 2" />
+            </SetBoardWrapper>
+          ) : (
+            <SetBoardWrapper>
+              <Board
+                owner="Player 1"
+                ownerBoard={board1}
+                ownerShips={ships1}
+                header="Player 1, set your board"
+              />
+              <Controls owner="Player 1" />
+              <ShipCollection owner="Player 1" />
+            </SetBoardWrapper>
+          )}
+        </Main>
+      </>
+    );
+  } else if (!gameMode) {
+    return (
+      <>
+        <Header>Battleships</Header>
+        <Main>
+          <Start />
+        </Main>
       </>
     );
   }

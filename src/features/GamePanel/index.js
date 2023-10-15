@@ -1,12 +1,14 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   selectGameMode,
   selectIsGameOver,
   selectIsGameStarted,
   selectIsPlayer1Turn,
   selectWinner,
+  setInitialState,
 } from "../gameSlice";
-import { Info } from "./styled";
+import { Info, Wrapper } from "./styled";
+import { Button } from "../../common/button";
 
 export default () => {
   const isPlayer1Turn = useSelector(selectIsPlayer1Turn);
@@ -14,6 +16,7 @@ export default () => {
   const isGameOver = useSelector(selectIsGameOver);
   const gameMode = useSelector(selectGameMode);
   const winner = useSelector(selectWinner);
+  const dispatch = useDispatch();
   let message;
   if (!isGameStarted && gameMode !== "simulation") {
     message = "Set your board";
@@ -31,5 +34,20 @@ export default () => {
     message = `${winner} won!`;
   }
 
-  return <Info>{message}</Info>;
+  return (
+    <Wrapper>
+      <Info>{message}</Info>
+      {isGameOver ? (
+        <Button
+          onClick={() => {
+            dispatch(setInitialState());
+          }}
+        >
+          Play again
+        </Button>
+      ) : (
+        ""
+      )}
+    </Wrapper>
+  );
 };
