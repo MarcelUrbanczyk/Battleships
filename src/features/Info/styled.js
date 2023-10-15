@@ -3,8 +3,8 @@ import { styled } from "styled-components";
 export const Info = styled.p`
   color: white;
   font-size: 32px;
-  white-space: nowrap;
   text-align: center;
+  white-space: nowrap;
   @media (max-width: 1250px) {
     font-size: 24px;
   }
@@ -17,9 +17,9 @@ export const Wrapper = styled.span`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: 50px;
-  padding-bottom: 5px;
   max-height: 577px;
+  padding-bottom: 5px;
+  padding-top: 50px;
   @media (max-width: 1250px) {
     padding-top: 60px;
   }

@@ -1,11 +1,11 @@
 import { styled } from "styled-components";
 
 export const Ships = styled.ul`
-  list-style: none;
   display: flex;
-  justify-content: center;
-  padding: 0;
   gap: 14px;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
   @media (max-width: 1250px) {
     margin: 0;
   }

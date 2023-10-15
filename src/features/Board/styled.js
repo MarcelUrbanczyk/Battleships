@@ -12,8 +12,8 @@ export const Block = styled.div`
     transform: scale(1.1);
   }
   @media (max-width: 1250px) {
-    width: 30px;
     height: 30px;
+    width: 30px;
   }
 `;
 

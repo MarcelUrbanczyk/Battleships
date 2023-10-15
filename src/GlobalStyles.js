@@ -3,11 +3,11 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
 body {
   background-color: #4F6272;
-  margin: 0;
   box-sizing: border-box;
   font-family: 'Montserrat';
-  user-select: none;
+  margin: 0;
   padding-bottom: 80px;
+  user-select: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
