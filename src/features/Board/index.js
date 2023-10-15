@@ -1,9 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Container, Block, Owner, Wrapper } from "./styled";
 import { placeShip, placeShipsRandomly } from "../placeShips";
 import { getBlockColor } from "../getBlockColor";
 import { setShipSunk } from "../setShipSunk";
 import { getShipByName } from "../getShip";
+import { isEveryShipSunk } from "../isEveryShipSunk";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setShips,
@@ -16,6 +17,11 @@ import {
   selectIsPlayer1Turn,
   selectIsGameOver,
   toggleIsGameOver,
+  selectGameMode,
+  toggleIsGameStarted,
+  selectShips1,
+  selectShips2,
+  selectWinner,
 } from "../gameSlice";
 import { randomHit } from "../randomHit";
 
@@ -26,21 +32,82 @@ export default ({ owner, enemy, ownerBoard, ownerShips }) => {
   const isGameStarted = useSelector(selectIsGameStarted);
   const isGameOver = useSelector(selectIsGameOver);
   const isPlayer1Turn = useSelector(selectIsPlayer1Turn);
+  const ships1 = useSelector(selectShips1);
+  const ships2 = useSelector(selectShips2);
+  const gameMode = useSelector(selectGameMode);
+  console.log(isGameOver);
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    if (owner === "Player2") {
-      const randomBoard = placeShipsRandomly();
-      dispatch(setBoard({ boardNumber: 2, content: [...randomBoard] }));
+    if (gameMode === "singleplayer") {
+      dispatch(
+        setBoard({ boardNumber: 2, content: [...placeShipsRandomly()] })
+      );
     }
   }, []);
 
   useEffect(() => {
-    const isEveryShipSunk = ownerShips.every((ship) => ship.isSunk === true);
-    if (isEveryShipSunk) {
-      dispatch(toggleIsGameOver());
-      dispatch(setWinner(enemy));
+    if (gameMode !== "simulation") {
+      const isEveryShipSunk = ownerShips.every((ship) => ship.isSunk === true);
+      if (isEveryShipSunk) {
+        dispatch(toggleIsGameOver());
+        dispatch(setWinner(enemy));
+      }
     }
-  }, [ownerShips]);
+  }, [ownerShips, gameMode]);
+
+  useEffect(() => {
+    if (gameMode === "simulation") {
+      dispatch(
+        setBoard({ boardNumber: 1, content: [...placeShipsRandomly()] })
+      );
+      dispatch(
+        setBoard({ boardNumber: 2, content: [...placeShipsRandomly()] })
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    if (gameMode === "simulation" && owner === "Player 1" && !isGameOver) {
+      const intervalId = setInterval(() => {
+        setCounter((prevCounter) => prevCounter + 1);
+
+        dispatch(toggleIsPlayer1Turn());
+
+        if (counter % 2 === 0) {
+          const newShips = randomHit("Player 1", ships1);
+          dispatch(
+            setShips({
+              shipsNumber: 1,
+              content: [...newShips],
+            })
+          );
+        } else {
+          const newShips = randomHit("Player 2", ships2);
+          dispatch(
+            setShips({
+              shipsNumber: 2,
+              content: [...newShips],
+            })
+          );
+        }
+
+        if (isEveryShipSunk(ships1)) {
+          dispatch(setWinner("Player 2"));
+          dispatch(toggleIsGameStarted());
+          dispatch(toggleIsGameOver());
+        } else if (isEveryShipSunk(ships2)) {
+          dispatch(setWinner("Player 1"));
+          dispatch(toggleIsGameStarted());
+          dispatch(toggleIsGameOver());
+        }
+      }, 100);
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, [ships1, ships2, isGameOver, counter]);
 
   return (
     <Wrapper>
@@ -50,13 +117,14 @@ export default ({ owner, enemy, ownerBoard, ownerShips }) => {
           ownerBoard.map((shipName, index) => (
             <Block
               key={index}
-              id={owner === "Player1" ? index + 1 : index + 101}
+              id={owner === "Player 1" ? index + 1 : index + 101}
               className={`${shipName ? shipName : ""} ${owner}`}
               style={{
                 backgroundColor: getBlockColor(
                   ownerShips,
-                  owner === "Player1" ? index + 1 : index + 101,
-                  shipName
+                  owner === "Player 1" ? index + 1 : index + 101,
+                  shipName,
+                  gameMode
                 ),
               }}
               onDragOver={(event) => {
@@ -95,10 +163,11 @@ export default ({ owner, enemy, ownerBoard, ownerShips }) => {
               onClick={(event) => {
                 if (
                   isGameStarted &&
-                  owner === "Player2" &&
+                  owner === "Player 2" &&
                   isPlayer1Turn &&
                   !event.target.classList.contains("hit") &&
-                  !isGameOver
+                  !isGameOver &&
+                  gameMode !== "simulation"
                 ) {
                   event.target.classList.add("hit");
                   const newShips = setShipSunk(
@@ -108,15 +177,12 @@ export default ({ owner, enemy, ownerBoard, ownerShips }) => {
                   );
                   setTimeout(() => {
                     dispatch(toggleIsPlayer1Turn());
-                    randomHit("Player1");
+                    setShips({
+                      shipsNumber: 1,
+                      content: [...randomHit("Player 1", ships1)],
+                    });
                   }, 2000);
                   dispatch(toggleIsPlayer1Turn());
-                  dispatch(
-                    setShips({
-                      shipsNumber: 2,
-                      content: [...newShips],
-                    })
-                  );
                 }
               }}
             />
