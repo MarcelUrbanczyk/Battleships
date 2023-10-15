@@ -25,6 +25,8 @@ const gameSlice = createSlice({
 
     winner: null,
     gameMode: null,
+    isPlayer1BoardSet: false,
+    isPlayer2BoardSet: false,
     isGameStarted: false,
     isGameOver: false,
     isPlayer1Turn: true,
@@ -41,6 +43,13 @@ const gameSlice = createSlice({
     },
     toggleIsPlayer1Turn: (state) => {
       state.isPlayer1Turn = !state.isPlayer1Turn;
+    },
+    toggleIsPlayerBoardSet: (state, { payload: playerNumber }) => {
+      if (playerNumber === 1) {
+        state.isPlayer1BoardSet = !state.isPlayer1BoardSet;
+      } else if (playerNumber === 2) {
+        state.isPlayer2BoardSet = !state.isPlayer2BoardSet;
+      }
     },
     toggleIsGameStarted: (state) => {
       state.isGameStarted = !state.isGameStarted;
@@ -85,11 +94,16 @@ export const selectFlip = (state) => selectGame(state).flip;
 export const selectDraggedShip = (state) => selectGame(state).draggedShip;
 export const selectWinner = (state) => selectGame(state).winner;
 export const selectGameMode = (state) => selectGame(state).gameMode;
+export const selectIsPlayer1BoardSet = (state) =>
+  selectGame(state).isPlayer1BoardSet;
+export const selectIsPlayer2BoardSet = (state) =>
+  selectGame(state).isPlayer2BoardSet;
 
 export const {
   setDraggedShip,
   toggleIsPlayer1Turn,
   toggleIsGameStarted,
+  toggleIsPlayerBoardSet,
   toggleIsGameOver,
   toggleFlip,
   setBoard,
