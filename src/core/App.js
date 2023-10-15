@@ -33,7 +33,7 @@ const App = () => {
 
   useEffect(() => {
     if (isPlayer1BoardSet && isPlayer2BoardSet) {
-      dispatch(toggleIsGameStarted);
+      dispatch(toggleIsGameStarted());
     }
   }, [isPlayer1BoardSet, isPlayer2BoardSet]);
 
