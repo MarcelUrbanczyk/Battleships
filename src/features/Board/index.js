@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Container, Block, Owner, Wrapper } from "./styled";
-import { placeShip, placeShipsRandomly } from "../placeShips";
-import { getBlockColor } from "../getBlockColor";
-import { setShipSunk } from "../setShipSunk";
-import { getShipByName } from "../getShip";
-import { isEveryShipSunk } from "../isEveryShipSunk";
+import { placeShip, placeShipsRandomly } from "../utils/placeShips";
+import { getBlockColor } from "../utils/getBlockColor";
+import { setShipSunk } from "../utils/setShipSunk";
+import { getShipByName } from "../utils/getShip";
+import { isEveryShipSunk } from "../utils/isEveryShipSunk";
+import { randomHit } from "../utils/randomHit";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setShips,
@@ -23,7 +24,6 @@ import {
   selectShips2,
   selectWinner,
 } from "../gameSlice";
-import { randomHit } from "../randomHit";
 
 export default ({ owner, enemy, ownerBoard, ownerShips }) => {
   const dispatch = useDispatch();

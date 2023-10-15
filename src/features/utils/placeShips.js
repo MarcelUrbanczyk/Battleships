@@ -1,4 +1,4 @@
-import { initialShips } from "./initialShips";
+import { initialShips } from "../initialShips";
 
 const isPositionValid = (x, y, isVertical, shipSize, board) => {
   const size = 10;

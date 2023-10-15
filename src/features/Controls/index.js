@@ -7,9 +7,9 @@ import {
   setShips,
   toggleIsGameStarted,
 } from "../gameSlice";
-import { placeShipsRandomly } from "../placeShips";
-import { setIsDroppedFalse, setIsDroppedTrue } from "../setIsDropped";
-import { isEveryShipDropped } from "../isEveryShipDropped";
+import { placeShipsRandomly } from "../utils/placeShips";
+import { setIsDroppedFalse, setIsDroppedTrue } from "../utils/setIsDropped";
+import { isEveryShipDropped } from "../utils/isEveryShipDropped";
 import { initialBoard } from "../initialBoard";
 import { initialShips } from "../initialShips";
 
