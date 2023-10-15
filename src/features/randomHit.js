@@ -1,15 +1,24 @@
-export const randomHit = (owner) => {
-  let blocksToAttack = document.getElementsByClassName(`${owner}`);
+import { setShipSunk } from "./setShipSunk";
 
-  if (blocksToAttack.length > 0) {
-    const randomIndex = Math.floor(Math.random() * blocksToAttack.length);
-    let blockToAttack = blocksToAttack[randomIndex];
+export const randomHit = (owner, ownerShips) => {
+  let id;
+  let attackedBlock;
+
+  while (!attackedBlock) {
+    if (owner === "Player 1") {
+      id = Math.floor(Math.random() * 100) + 1;
+    } else if (owner === "Player 2") {
+      id = Math.floor(Math.random() * 100) + 101;
+    }
+
+    const blockToAttack = document.getElementById(`${id}`);
 
     if (blockToAttack.classList.contains("hit")) {
-      blockToAttack =
-        blocksToAttack[Math.floor(Math.random() * blocksToAttack.length)];
     } else if (!blockToAttack.classList.contains("hit")) {
-      blockToAttack.classList.add("hit");
+      attackedBlock = blockToAttack;
     }
   }
+
+  attackedBlock.classList.add("hit");
+  return setShipSunk(attackedBlock.classList, owner, ownerShips);
 };
