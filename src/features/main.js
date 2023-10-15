@@ -6,4 +6,10 @@ export const Main = styled.main`
   margin: auto;
   max-width: 1200px;
   padding: 0 20px;
+  @media (max-width: 960px) {
+    flex-direction: column;
+  }
+  @media (max-width: 460px) {
+    padding: 0;
+  }
 `;

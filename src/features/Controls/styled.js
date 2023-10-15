@@ -8,6 +8,9 @@ export const RandomButton = styled(diceIcon)`
   &:hover {
     cursor: pointer;
   }
+  @media (max-width: 500px) {
+    width: 30px;
+  }
 `;
 
 export const RestartButton = styled(restartIcon)`
@@ -15,6 +18,9 @@ export const RestartButton = styled(restartIcon)`
   width: 40px;
   &:hover {
     cursor: pointer;
+  }
+  @media (max-width: 500px) {
+    width: 30px;
   }
 `;
 
@@ -24,4 +30,10 @@ export const Controls = styled.div`
   height: 40px;
   justify-content: space-between;
   margin: 20px 40px;
+  @media (max-width: 500px) {
+    margin: 10px 40px;
+  }
+  @media (max-width: 960px) {
+    margin: 10px 50px;
+  }
 `;

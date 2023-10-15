@@ -11,10 +11,16 @@ export const Container = styled.div`
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
   padding: 20px;
+  @media (max-width: 500px) {
+    padding: 10px;
+  }
 `;
 
 export const Header = styled.h2`
   color: white;
+  @media (max-width: 500px) {
+    margin: 5px;
+  }
 `;
 
 export const Paragraph = styled.p`

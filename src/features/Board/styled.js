@@ -11,6 +11,10 @@ export const Block = styled.div`
     background-color: #006666;
     transform: scale(1.1);
   }
+  @media (max-width: 1250px) {
+    width: 30px;
+    height: 30px;
+  }
 `;
 
 export const Container = styled.div`
@@ -25,6 +29,9 @@ export const Container = styled.div`
   &:hover {
     cursor: crosshair;
   }
+  @media (max-width: 1250px) {
+    width: 300px;
+  }
 `;
 
 export const Header = styled.h2`
@@ -32,6 +39,9 @@ export const Header = styled.h2`
   font-size: 36px;
   font-weight: 400;
   margin: 10px;
+  @media (max-width: 500px) {
+    font-size: 24px;
+  }
 `;
 
 export const Wrapper = styled.div`

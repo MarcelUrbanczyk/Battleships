@@ -7,6 +7,7 @@ body {
   box-sizing: border-box;
   font-family: 'Montserrat';
   user-select: none;
+  padding-bottom: 80px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

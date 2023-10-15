@@ -9,6 +9,8 @@ export const Button = styled.button`
   font-size: 16px;
   padding: 10px;
   transition: 0.3s;
+  max-width: 200px;
+  align-self: center;
   &:hover {
     background-color: #2f3942;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
@@ -18,5 +20,9 @@ export const Button = styled.button`
   &:disabled {
     color: #ccc;
     cursor: not-allowed;
+  }
+  @media (max-width: 500px) {
+    padding: 6px;
+    font-size: 12px;
   }
 `;

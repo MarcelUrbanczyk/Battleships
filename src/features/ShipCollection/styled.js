@@ -19,7 +19,6 @@ export const Container = styled.div`
   align-items: center;
   background-color: #3b4752;
   border-radius: 8px;
-  border: 2px solid white;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(255, 255, 255, 0.3) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
@@ -27,6 +26,9 @@ export const Container = styled.div`
   justify-content: space-between;
   margin: 0 30px;
   padding: 30px;
+  @media (max-width: 500px) {
+    padding: 10px;
+  }
 `;
 
 export const ShipWrapper = styled.span`
@@ -41,6 +43,9 @@ export const FlipButton = styled(FlipIcon)`
   height: auto;
   justify-self: flex-end;
   width: 20px;
+  @media (max-width: 500px) {
+    width: 15px;
+  }
 `;
 
 export const Header = styled.h2`
@@ -48,4 +53,7 @@ export const Header = styled.h2`
   font-weight: 400;
   margin: 5px 30px;
   user-select: none;
+  @media (max-width: 500px) {
+    font-size: 18px;
+  }
 `;
