@@ -36,8 +36,9 @@ export const placeShip = (board, startIndex, ship, isVertical) => {
       board[shipIndex] = ship.name;
     }
     ship = { ...ship, isDropped: true };
+    return board;
   }
-  return board;
+  return false;
 };
 
 export const placeShipsRandomly = () => {

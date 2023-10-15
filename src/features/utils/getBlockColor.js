@@ -1,4 +1,4 @@
-export const getBlockColor = (ships, id, shipName, gameMode) => {
+export const getBlockColor = (ships, id, shipName, gameMode, isGameStarted) => {
   const ship = ships.find((ship) => ship.name === shipName);
   const block = document.getElementById(id);
 
@@ -7,8 +7,14 @@ export const getBlockColor = (ships, id, shipName, gameMode) => {
   } else if (ship && block && block.classList.contains("hit")) {
     return "red";
   } else if (
-    (ship && block && id <= 100) ||
-    (ship && block && gameMode === "simulation")
+    (ship &&
+      block &&
+      id <= 100 &&
+      gameMode !== "multiplayer" &&
+      !isGameStarted) ||
+    (ship && block && id <= 100 && gameMode === "singleplayer") ||
+    (ship && block && gameMode === "simulation") ||
+    (ship && block && gameMode === "multiplayer" && !isGameStarted)
   ) {
     return ship.color;
   }

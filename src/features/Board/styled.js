@@ -27,9 +27,10 @@ export const Container = styled.div`
   }
 `;
 
-export const Owner = styled.p`
+export const Header = styled.h2`
   color: white;
   font-size: 36px;
+  font-weight: 400;
   margin: 10px;
 `;
 
