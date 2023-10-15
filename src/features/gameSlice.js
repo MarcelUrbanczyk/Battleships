@@ -24,6 +24,7 @@ const gameSlice = createSlice({
     board2: [...initialBoard],
 
     winner: null,
+    gameMode: null,
     isGameStarted: false,
     isGameOver: false,
     isPlayer1Turn: true,
@@ -66,6 +67,9 @@ const gameSlice = createSlice({
     setWinner: (state, { payload: winner }) => {
       state.winner = winner;
     },
+    setGameMode: (state, { payload: gameMode }) => {
+      state.gameMode = gameMode;
+    },
   },
 });
 
@@ -80,6 +84,7 @@ export const selectIsPlayer1Turn = (state) => selectGame(state).isPlayer1Turn;
 export const selectFlip = (state) => selectGame(state).flip;
 export const selectDraggedShip = (state) => selectGame(state).draggedShip;
 export const selectWinner = (state) => selectGame(state).winner;
+export const selectGameMode = (state) => selectGame(state).gameMode;
 
 export const {
   setDraggedShip,
@@ -90,6 +95,7 @@ export const {
   setBoard,
   setShips,
   setWinner,
+  setGameMode,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;
