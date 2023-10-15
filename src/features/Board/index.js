@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Block, Header, Wrapper } from "./styled";
-import { placeShip, placeShipsRandomly } from "../utils/placeShips";
+import { placeShipsRandomly } from "../utils/placeShips";
 import { getBlockColor } from "../utils/getBlockColor";
-import { setShipSunk } from "../utils/setShipSunk";
-import { getShipByName } from "../utils/getShip";
 import { isEveryShipSunk } from "../utils/isEveryShipSunk";
 import { randomHit } from "../utils/randomHit";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,30 +10,34 @@ import {
   toggleIsPlayer1Turn,
   setBoard,
   setWinner,
-  selectDraggedShip,
-  selectFlip,
   selectIsGameStarted,
-  selectIsPlayer1Turn,
   selectIsGameOver,
   toggleIsGameOver,
   selectGameMode,
   toggleIsGameStarted,
   selectShips1,
   selectShips2,
-  setDraggedShip,
+  selectDraggedShip,
+  selectBoard1,
+  selectBoard2,
 } from "../gameSlice";
+import useHandleClick from "./useHandleClick";
+import useHandleDrop from "./useHandleDrop";
 
 export default ({ owner, ownerBoard, ownerShips, header }) => {
   const dispatch = useDispatch();
   const draggedShip = useSelector(selectDraggedShip);
-  const flip = useSelector(selectFlip);
   const isGameStarted = useSelector(selectIsGameStarted);
   const isGameOver = useSelector(selectIsGameOver);
-  const isPlayer1Turn = useSelector(selectIsPlayer1Turn);
   const ships1 = useSelector(selectShips1);
   const ships2 = useSelector(selectShips2);
+  const board1 = useSelector(selectBoard1);
+  const board2 = useSelector(selectBoard2);
   const gameMode = useSelector(selectGameMode);
   const [counter, setCounter] = useState(0);
+
+  const handleClick = useHandleClick();
+  const handleDrop = useHandleDrop();
 
   useEffect(() => {
     if (gameMode === "singleplayer") {
@@ -139,113 +141,26 @@ export default ({ owner, ownerBoard, ownerShips, header }) => {
                 event.preventDefault();
               }}
               onDrop={(event) => {
-                const ship = getShipByName(ownerShips, draggedShip.name);
-                const shipIndex = ownerShips.findIndex(
-                  (ship) => ship.name === draggedShip.name
-                );
-                const newShips = [...ownerShips];
-                newShips[shipIndex] = {
-                  ...newShips[shipIndex],
-                  isDropped: true,
-                };
-
-                let startIndex;
-                if (event.target.id <= 100) {
-                  startIndex = event.target.id - 1;
+                if (owner === "Player 1") {
+                  handleDrop(
+                    ships1,
+                    draggedShip.name,
+                    event.target.id,
+                    board1,
+                    owner
+                  );
                 } else {
-                  startIndex = event.target.id - 101;
-                }
-                const oldBoard = [...ownerBoard];
-                const newBoard = placeShip(oldBoard, startIndex, ship, flip);
-                if (owner === "Player 1" && newBoard) {
-                  dispatch(
-                    setBoard({ boardNumber: 1, content: [...newBoard] })
+                  handleDrop(
+                    ships2,
+                    draggedShip.name,
+                    event.target.id,
+                    board2,
+                    owner
                   );
-                  dispatch(
-                    setShips({ shipsNumber: 1, content: [...newShips] })
-                  );
-                  dispatch(setDraggedShip(null));
-                } else if (owner === "Player 2" && newBoard) {
-                  dispatch(
-                    setBoard({ boardNumber: 2, content: [...newBoard] })
-                  );
-                  dispatch(
-                    setShips({ shipsNumber: 2, content: [...newShips] })
-                  );
-                  dispatch(setDraggedShip(null));
                 }
               }}
               onClick={(event) => {
-                if (
-                  isGameStarted &&
-                  owner === "Player 2" &&
-                  isPlayer1Turn &&
-                  !event.target.classList.contains("hit") &&
-                  !isGameOver &&
-                  gameMode === "singleplayer"
-                ) {
-                  event.target.classList.add("hit");
-                  dispatch(
-                    setShips({
-                      shipsNumber: 2,
-                      content: [
-                        ...setShipSunk(event.target.classList, owner, ships2),
-                      ],
-                    })
-                  );
-                  dispatch(toggleIsPlayer1Turn());
-                  setTimeout(() => {
-                    dispatch(
-                      setShips({
-                        shipsNumber: 1,
-                        content: [...randomHit("Player 1", ships1)],
-                      })
-                    );
-                    dispatch(toggleIsPlayer1Turn());
-                  }, 2000);
-                } else if (
-                  (isGameStarted &&
-                    !event.target.classList.contains("hit") &&
-                    !isGameOver &&
-                    gameMode === "multiplayer" &&
-                    isPlayer1Turn &&
-                    event.target.id > 100) ||
-                  (isGameStarted &&
-                    !event.target.classList.contains("hit") &&
-                    !isGameOver &&
-                    gameMode === "multiplayer" &&
-                    !isPlayer1Turn &&
-                    event.target.id <= 100)
-                ) {
-                  event.target.classList.add("hit");
-                  let newShips;
-                  if (owner === "Player 1") {
-                    newShips = setShipSunk(
-                      event.target.classList,
-                      owner,
-                      ships1
-                    );
-                    dispatch(
-                      setShips({
-                        shipsNumber: 1,
-                        content: [...newShips],
-                      })
-                    );
-                  } else if (owner === "Player 2") {
-                    newShips = setShipSunk(
-                      event.target.classList,
-                      owner,
-                      ships2
-                    );
-                    dispatch(
-                      setShips({
-                        shipsNumber: 2,
-                        content: [...newShips],
-                      })
-                    );
-                  }
-                  dispatch(toggleIsPlayer1Turn());
-                }
+                handleClick(owner, event.target.classList, event.target.id);
               }}
             />
           ))}
