@@ -1,4 +1,5 @@
-import { Controls, RestartButton, ReadyButton, RandomButton } from "./styled";
+import { Controls, RestartButton, RandomButton } from "./styled";
+import { Button } from "../../common/button";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectGameMode,
@@ -42,7 +43,7 @@ export default (owner) => {
             );
           }}
         />
-        <ReadyButton
+        <Button
           disabled={!isEveryShipDropped(ships1)}
           onClick={() => {
             if (gameMode !== "multiplayer") {
@@ -55,7 +56,7 @@ export default (owner) => {
           }}
         >
           Ready
-        </ReadyButton>
+        </Button>
         <RandomButton
           onClick={() => {
             dispatch(
@@ -93,14 +94,14 @@ export default (owner) => {
             );
           }}
         />
-        <ReadyButton
+        <Button
           disabled={!isEveryShipDropped(ships2)}
           onClick={() => {
             dispatch(toggleIsGameStarted());
           }}
         >
           Ready
-        </ReadyButton>
+        </Button>
         <RandomButton
           onClick={() => {
             dispatch(
