@@ -1,3 +1,3 @@
 export const isEveryShipSunk = (ships) => {
-  return ships.every((ship) => ship.isDropped === true);
+  return ships.every((ship) => ship.isSunk === true);
 };
