@@ -51,7 +51,7 @@ const gameSlice = createSlice({
       state.gameMode = gameMode;
     },
     setInitialState: (state) => {
-      Object.assign(state, initialState);
+      return initialState;
     },
   },
 });
