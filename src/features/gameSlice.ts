@@ -53,8 +53,8 @@ const gameSlice = createSlice({
     setGameMode: (state, { payload: gameMode }) => {
       state.gameMode = gameMode;
     },
-    setInitialState: () => {
-      return initialState;
+    setInitialState: (state) => {
+      Object.assign(state, initialState);
     },
   },
 });
