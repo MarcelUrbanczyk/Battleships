@@ -1,6 +1,9 @@
-import { Controls, RestartButton, RandomButton } from "./styled";
+import { ButtonImage, Controls, GameControlButton } from "./styled";
 import { Button } from "../../common/button";
 import { useDispatch, useSelector } from "react-redux";
+import DiceIcon from "../../icons/diceIcon.svg";
+import RestartIcon from "../../icons/restartIcon.svg";
+
 import {
   selectGameMode,
   selectIsPlayer1BoardSet,
@@ -27,7 +30,7 @@ export default (owner) => {
   if (owner.owner === "Player 1") {
     return (
       <Controls>
-        <RestartButton
+        <GameControlButton
           onClick={() => {
             dispatch(
               setShips({
@@ -42,7 +45,9 @@ export default (owner) => {
               })
             );
           }}
-        />
+        >
+          <ButtonImage src={RestartIcon} />
+        </GameControlButton>
         <Button
           disabled={!isEveryShipDropped(ships1)}
           onClick={() => {
@@ -57,7 +62,7 @@ export default (owner) => {
         >
           Ready
         </Button>
-        <RandomButton
+        <GameControlButton
           onClick={() => {
             dispatch(
               setShips({
@@ -72,13 +77,15 @@ export default (owner) => {
               })
             );
           }}
-        />
+        >
+          <ButtonImage src={DiceIcon} />
+        </GameControlButton>
       </Controls>
     );
   } else {
     return (
       <Controls>
-        <RestartButton
+        <GameControlButton
           onClick={() => {
             dispatch(
               setShips({
@@ -93,7 +100,9 @@ export default (owner) => {
               })
             );
           }}
-        />
+        >
+          <ButtonImage src={RestartIcon} />
+        </GameControlButton>
         <Button
           disabled={!isEveryShipDropped(ships2)}
           onClick={() => {
@@ -102,7 +111,7 @@ export default (owner) => {
         >
           Ready
         </Button>
-        <RandomButton
+        <GameControlButton
           onClick={() => {
             dispatch(
               setShips({
@@ -117,7 +126,9 @@ export default (owner) => {
               })
             );
           }}
-        />
+        >
+          <ButtonImage src={DiceIcon} />
+        </GameControlButton>
       </Controls>
     );
   }
