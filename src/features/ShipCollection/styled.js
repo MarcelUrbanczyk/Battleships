@@ -40,8 +40,10 @@ export const ShipWrapper = styled.span`
 export const FlipButton = styled(FlipIcon)`
   cursor: pointer;
   fill: white;
+  flex-shrink: 0;
   height: auto;
   justify-self: flex-end;
+  margin: 0 10px;
   width: 20px;
   @media (max-width: 500px) {
     width: 15px;
