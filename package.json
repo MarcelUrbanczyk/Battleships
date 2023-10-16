@@ -2,7 +2,7 @@
   "name": "battleships",
   "version": "0.1.0",
   "private": true,
-  "homepage": "marcelurbanczyk.github.io/Battleships/",
+  "homepage": "https://marcelurbanczyk.github.io/Battleships/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
     "@testing-library/jest-dom": "^5.17.0",
