@@ -1,8 +1,8 @@
 import { styled } from "styled-components";
+import { ReactComponent as diceIcon } from "../../icons/diceIcon.svg";
+import { ReactComponent as restartIcon } from "../../icons/restartIcon.svg";
 
-export const GameControlButton = styled.button`
-  background: none;
-  border: none;
+export const RandomButton = styled(diceIcon)`
   height: auto;
   width: 40px;
   &:hover {
@@ -12,9 +12,16 @@ export const GameControlButton = styled.button`
     width: 30px;
   }
 `;
-export const ButtonImage = styled.img`
-  width: 100%;
+
+export const RestartButton = styled(restartIcon)`
   height: auto;
+  width: 40px;
+  &:hover {
+    cursor: pointer;
+  }
+  @media (max-width: 500px) {
+    width: 30px;
+  }
 `;
 
 export const Controls = styled.div`
