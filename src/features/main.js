@@ -8,6 +8,7 @@ export const Main = styled.main`
   padding: 0 20px;
   @media (max-width: 960px) {
     flex-direction: column;
+    max-width: 400px;
   }
   @media (max-width: 460px) {
     padding: 0;
