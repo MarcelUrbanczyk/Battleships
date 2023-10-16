@@ -1,8 +1,10 @@
-export const getShipByName = (ships, shipName) => {
+import { Ship } from "../shipInterface";
+
+export const getShipByName = (ships: Ship[], shipName: string) => {
   return ships.find((ship) => ship.name === shipName);
 };
 
-export const getShipByElement = (ships, element) => {
+export const getShipByElement = (ships: Ship[], element: HTMLElement) => {
   const shipNames = ships.map((ship) => ship.name);
   const elementClassList = element.classList;
 
