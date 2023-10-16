@@ -4,7 +4,7 @@ class Ship {
   color: string;
   isDropped: boolean;
   isSunk: boolean;
-  constructor(name: string, size: number, color: string) {
+  constructor(name, size, color) {
     this.name = name;
     this.size = size;
     this.color = color;

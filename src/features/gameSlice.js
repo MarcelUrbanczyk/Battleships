@@ -1,12 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./initialState";
-import { createSelector } from "@reduxjs/toolkit";
-
-type GameState = typeof initialState;
 
 const gameSlice = createSlice({
   name: "game",
-  initialState,
+  initialState: { ...initialState },
 
   reducers: {
     setDraggedShip: (state, { payload: ship }) => {
@@ -59,41 +56,22 @@ const gameSlice = createSlice({
   },
 });
 
-export const selectGame = (state: { game: GameState }) => state.game;
-export const selectShips1 = createSelector(selectGame, (game) => game.ships1);
-export const selectShips2 = createSelector(selectGame, (game) => game.ships2);
-export const selectBoard1 = createSelector(selectGame, (game) => game.board1);
-export const selectBoard2 = createSelector(selectGame, (game) => game.board2);
-export const selectIsGameStarted = createSelector(
-  selectGame,
-  (game) => game.isGameStarted
-);
-export const selectIsGameOver = createSelector(
-  selectGame,
-  (game) => game.isGameOver
-);
-export const selectIsPlayer1Turn = createSelector(
-  selectGame,
-  (game) => game.isPlayer1Turn
-);
-export const selectFlip = createSelector(selectGame, (game) => game.flip);
-export const selectDraggedShip = createSelector(
-  selectGame,
-  (game) => game.draggedShip
-);
-export const selectWinner = createSelector(selectGame, (game) => game.winner);
-export const selectGameMode = createSelector(
-  selectGame,
-  (game) => game.gameMode
-);
-export const selectIsPlayer1BoardSet = createSelector(
-  selectGame,
-  (game) => game.isPlayer1BoardSet
-);
-export const selectIsPlayer2BoardSet = createSelector(
-  selectGame,
-  (game) => game.isPlayer2BoardSet
-);
+export const selectGame = (state) => state.game;
+export const selectShips1 = (state) => selectGame(state).ships1;
+export const selectShips2 = (state) => selectGame(state).ships2;
+export const selectBoard1 = (state) => selectGame(state).board1;
+export const selectBoard2 = (state) => selectGame(state).board2;
+export const selectIsGameStarted = (state) => selectGame(state).isGameStarted;
+export const selectIsGameOver = (state) => selectGame(state).isGameOver;
+export const selectIsPlayer1Turn = (state) => selectGame(state).isPlayer1Turn;
+export const selectFlip = (state) => selectGame(state).flip;
+export const selectDraggedShip = (state) => selectGame(state).draggedShip;
+export const selectWinner = (state) => selectGame(state).winner;
+export const selectGameMode = (state) => selectGame(state).gameMode;
+export const selectIsPlayer1BoardSet = (state) =>
+  selectGame(state).isPlayer1BoardSet;
+export const selectIsPlayer2BoardSet = (state) =>
+  selectGame(state).isPlayer2BoardSet;
 
 export const {
   setDraggedShip,

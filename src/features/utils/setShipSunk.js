@@ -1,10 +1,4 @@
-import { Ship } from "../shipInterface";
-
-export const setShipSunk = (
-  classList: DOMTokenList,
-  owner: string,
-  ships: Ship[]
-) => {
+export const setShipSunk = (classList, owner, ships) => {
   let newShips = [...ships];
   let sunkPartsCounter = 0;
   newShips.forEach((ship, index) => {

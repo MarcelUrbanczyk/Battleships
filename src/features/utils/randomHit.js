@@ -1,7 +1,6 @@
 import { setShipSunk } from "./setShipSunk";
-import { Ship } from "../shipInterface";
 
-export const randomHit = (owner: string, ownerShips: Ship[]) => {
+export const randomHit = (owner, ownerShips) => {
   let id;
   let attackedBlock;
 
@@ -14,8 +13,8 @@ export const randomHit = (owner: string, ownerShips: Ship[]) => {
 
     const blockToAttack = document.getElementById(`${id}`);
 
-    if (blockToAttack && blockToAttack.classList.contains("hit")) {
-    } else if (blockToAttack && !blockToAttack.classList.contains("hit")) {
+    if (blockToAttack.classList.contains("hit")) {
+    } else if (!blockToAttack.classList.contains("hit")) {
       attackedBlock = blockToAttack;
     }
   }

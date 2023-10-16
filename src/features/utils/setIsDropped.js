@@ -1,6 +1,4 @@
-import { Ship } from "../shipInterface";
-
-export const setIsDroppedFalse = (ships: Ship[]) => {
+export const setIsDroppedFalse = (ships) => {
   const newShips = ships.map((ship) => ({
     ...ship,
     isDropped: false,
@@ -8,7 +6,7 @@ export const setIsDroppedFalse = (ships: Ship[]) => {
   return newShips;
 };
 
-export const setIsDroppedTrue = (ships: Ship[]) => {
+export const setIsDroppedTrue = (ships) => {
   const newShips = ships.map((ship) => ({
     ...ship,
     isDropped: true,

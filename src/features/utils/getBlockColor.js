@@ -1,14 +1,6 @@
-import { Ship } from "../shipInterface";
-
-export const getBlockColor = (
-  ships: Ship[],
-  id: number,
-  shipName: string,
-  gameMode: string,
-  isGameStarted: boolean
-) => {
+export const getBlockColor = (ships, id, shipName, gameMode, isGameStarted) => {
   const ship = ships.find((ship) => ship.name === shipName);
-  const block = document.getElementById(id.toString());
+  const block = document.getElementById(id);
 
   if (!ship && block && block.classList.contains("hit")) {
     return "grey";
