@@ -140,7 +140,29 @@ export default ({ owner, ownerBoard, ownerShips, header }) => {
               onDragOver={(event) => {
                 event.preventDefault();
               }}
+              onTouchMove={(event) => {
+                event.preventDefault();
+              }}
               onDrop={(event) => {
+                if (owner === "Player 1") {
+                  handleDrop(
+                    ships1,
+                    draggedShip.name,
+                    event.target.id,
+                    board1,
+                    owner
+                  );
+                } else {
+                  handleDrop(
+                    ships2,
+                    draggedShip.name,
+                    event.target.id,
+                    board2,
+                    owner
+                  );
+                }
+              }}
+              onTouchEnd={(event) => {
                 if (owner === "Player 1") {
                   handleDrop(
                     ships1,

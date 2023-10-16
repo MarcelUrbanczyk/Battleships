@@ -39,6 +39,10 @@ export default (owner) => {
                       const ship = getShipByElement(ships1, event.target);
                       dispatch(setDraggedShip(ship));
                     }}
+                    onTouchStart={(event) => {
+                      const ship = getShipByElement(ships1, event.target);
+                      dispatch(setDraggedShip(ship));
+                    }}
                   />
                 );
               }
