@@ -26,6 +26,7 @@ const useHandleClick = () => {
       isGameStarted &&
       owner === "Player 2" &&
       isPlayer1Turn &&
+      blockClassList &&
       !blockClassList.contains("hit") &&
       !isGameOver &&
       gameMode === "singleplayer"
@@ -39,12 +40,15 @@ const useHandleClick = () => {
       );
       dispatch(toggleIsPlayer1Turn());
       setTimeout(() => {
-        dispatch(
-          setShips({
-            shipsNumber: 1,
-            content: [...randomHit("Player 1", ships1)],
-          })
-        );
+        const randomHitShips = randomHit("Player 1", ships1);
+        if (randomHitShips) {
+          dispatch(
+            setShips({
+              shipsNumber: 1,
+              content: [...randomHitShips],
+            })
+          );
+        }
         dispatch(toggleIsPlayer1Turn());
       }, 2000);
     } else if (

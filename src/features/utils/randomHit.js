@@ -13,12 +13,18 @@ export const randomHit = (owner, ownerShips) => {
 
     const blockToAttack = document.getElementById(`${id}`);
 
-    if (blockToAttack.classList.contains("hit")) {
-    } else if (!blockToAttack.classList.contains("hit")) {
-      attackedBlock = blockToAttack;
+    if (blockToAttack) {
+      if (blockToAttack.classList.contains("hit")) {
+      } else {
+        attackedBlock = blockToAttack;
+      }
+    } else {
+      break;
     }
   }
 
-  attackedBlock.classList.add("hit");
-  return setShipSunk(attackedBlock.classList, owner, ownerShips);
+  if (attackedBlock) {
+    attackedBlock.classList.add("hit");
+    return setShipSunk(attackedBlock.classList, owner, ownerShips);
+  }
 };
