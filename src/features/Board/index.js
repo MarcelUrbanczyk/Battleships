@@ -22,7 +22,7 @@ import {
   selectBoard2,
 } from "../gameSlice";
 import useHandleClick from "./useHandleClick";
-import useHandleDrop from "./useHandleDrop";
+import useHandleDropShip from "./useHandleDropShip";
 
 export default ({ owner, ownerBoard, ownerShips, header }) => {
   const dispatch = useDispatch();
@@ -37,7 +37,7 @@ export default ({ owner, ownerBoard, ownerShips, header }) => {
   const [counter, setCounter] = useState(0);
 
   const handleClick = useHandleClick();
-  const handleDrop = useHandleDrop();
+  const handleDrop = useHandleDropShip();
 
   useEffect(() => {
     if (gameMode === "singleplayer") {
@@ -140,9 +140,6 @@ export default ({ owner, ownerBoard, ownerShips, header }) => {
               onDragOver={(event) => {
                 event.preventDefault();
               }}
-              onTouchMove={(event) => {
-                event.preventDefault();
-              }}
               onDrop={(event) => {
                 if (owner === "Player 1") {
                   handleDrop(
@@ -162,27 +159,28 @@ export default ({ owner, ownerBoard, ownerShips, header }) => {
                   );
                 }
               }}
-              onTouchEnd={(event) => {
-                if (owner === "Player 1") {
-                  handleDrop(
-                    ships1,
-                    draggedShip.name,
-                    event.target.id,
-                    board1,
-                    owner
-                  );
-                } else {
-                  handleDrop(
-                    ships2,
-                    draggedShip.name,
-                    event.target.id,
-                    board2,
-                    owner
-                  );
-                }
-              }}
               onClick={(event) => {
-                handleClick(owner, event.target.classList, event.target.id);
+                if (draggedShip) {
+                  if (owner === "Player 1") {
+                    handleDrop(
+                      ships1,
+                      draggedShip.name,
+                      event.target.id,
+                      board1,
+                      owner
+                    );
+                  } else {
+                    handleDrop(
+                      ships2,
+                      draggedShip.name,
+                      event.target.id,
+                      board2,
+                      owner
+                    );
+                  }
+                } else {
+                  handleClick(owner, event.target.classList, event.target.id);
+                }
               }}
             />
           ))}

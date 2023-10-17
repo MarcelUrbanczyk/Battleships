@@ -3,7 +3,7 @@ import { placeShip } from "../utils/placeShips";
 import { setBoard, setShips, setDraggedShip, selectFlip } from "../gameSlice";
 import { getShipByName } from "../utils/getShip";
 
-const useHandleDrop = () => {
+const useHandleDropShipShip = () => {
   const dispatch = useDispatch();
   const flip = useSelector(selectFlip);
 
@@ -45,4 +45,4 @@ const useHandleDrop = () => {
   return handleDrop;
 };
 
-export default useHandleDrop;
+export default useHandleDropShipShip;
