@@ -1,5 +1,7 @@
+import { getShipByName } from "./getShip";
+
 export const getBlockColor = (ships, id, shipName, gameMode, isGameStarted) => {
-  const ship = ships.find((ship) => ship.name === shipName);
+  const ship = getShipByName(ships, shipName);
   const block = document.getElementById(id);
 
   if (!ship && block && block.classList.contains("hit")) {
