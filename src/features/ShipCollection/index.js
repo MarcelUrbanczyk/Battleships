@@ -39,7 +39,7 @@ export default (owner) => {
                       const ship = getShipByElement(ships1, event.target);
                       dispatch(setDraggedShip(ship));
                     }}
-                    onTouchStart={(event) => {
+                    onClick={(event) => {
                       const ship = getShipByElement(ships1, event.target);
                       dispatch(setDraggedShip(ship));
                     }}
@@ -78,6 +78,10 @@ export default (owner) => {
                     }}
                     onDragStart={(event) => {
                       const ship = getShipByElement(ships2, event.target);
+                      dispatch(setDraggedShip(ship));
+                    }}
+                    onClick={(event) => {
+                      const ship = getShipByElement(ships1, event.target);
                       dispatch(setDraggedShip(ship));
                     }}
                   />
