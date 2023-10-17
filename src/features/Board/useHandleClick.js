@@ -53,17 +53,17 @@ const useHandleClick = () => {
       }, 2000);
     } else if (
       (isGameStarted &&
-        !blockClassList.contains("hit") &&
         !isGameOver &&
+        !blockClassList.contains("hit") &&
+        blockId > 100 &&
         gameMode === "multiplayer" &&
-        isPlayer1Turn &&
-        blockId > 100) ||
+        isPlayer1Turn) ||
       (isGameStarted &&
-        !blockClassList.contains("hit") &&
         !isGameOver &&
+        !blockClassList.contains("hit") &&
+        blockId <= 100 &&
         gameMode === "multiplayer" &&
-        !isPlayer1Turn &&
-        blockId <= 100)
+        !isPlayer1Turn)
     ) {
       blockClassList.add("hit");
       let newShips;
