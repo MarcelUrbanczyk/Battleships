@@ -51,14 +51,12 @@ export default ({ owner, ownerBoard, ownerShips, header }) => {
     if (gameMode !== "simulation" && owner === "Player 1") {
       const isEveryShipSunk = ships1.every((ship) => ship.isSunk === true);
       if (isEveryShipSunk) {
-        console.log(ships1);
         dispatch(toggleIsGameOver());
         dispatch(setWinner("Player 2"));
       }
     } else if (gameMode !== "simulation" && owner === "Player 2") {
       const isEveryShipSunk = ships2.every((ship) => ship.isSunk === true);
       if (isEveryShipSunk) {
-        console.log(ships2);
         dispatch(toggleIsGameOver());
         dispatch(setWinner("Player 1"));
       }
