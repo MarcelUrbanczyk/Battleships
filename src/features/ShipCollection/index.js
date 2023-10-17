@@ -1,4 +1,11 @@
-import { Container, FlipButton, ShipWrapper, Header, Ship } from "./styled";
+import {
+  Container,
+  FlipButton,
+  ShipWrapper,
+  Wrapper,
+  Header,
+  Ship,
+} from "./styled";
 import { isEveryShipDropped } from "../utils/isEveryShipDropped";
 import { useDispatch, useSelector } from "react-redux";
 import { getShipByElement } from "../utils/getShip";
@@ -18,7 +25,7 @@ export default (owner) => {
 
   if (owner.owner === "Player 1" && !isEveryShipDropped(ships1)) {
     return (
-      <>
+      <Wrapper>
         <Header>Ships</Header>
         <Container>
           <ShipWrapper>
@@ -55,11 +62,11 @@ export default (owner) => {
             }}
           />
         </Container>
-      </>
+      </Wrapper>
     );
   } else if (owner.owner === "Player 2" && !isEveryShipDropped(ships2)) {
     return (
-      <>
+      <Wrapper>
         <Header>Ships</Header>
         <Container>
           <ShipWrapper>
@@ -96,7 +103,7 @@ export default (owner) => {
             }}
           />
         </Container>
-      </>
+      </Wrapper>
     );
   }
 };

@@ -21,8 +21,4 @@ export const Button = styled.button`
     color: #ccc;
     cursor: not-allowed;
   }
-  @media (max-width: 500px) {
-    font-size: 12px;
-    padding: 6px;
-  }
 `;

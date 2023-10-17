@@ -24,9 +24,8 @@ export const Container = styled.div`
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   display: flex;
   justify-content: space-between;
-  margin: 0 30px;
   padding: 30px;
-  @media (max-width: 500px) {
+  @media (max-width: 400px) {
     padding: 10px;
   }
 `;
@@ -35,6 +34,9 @@ export const ShipWrapper = styled.span`
   align-items: center;
   display: flex;
   gap: 20px;
+  @media (max-width: 400px) {
+    gap: 10px;
+  }
 `;
 
 export const FlipButton = styled(FlipIcon)`
@@ -45,17 +47,25 @@ export const FlipButton = styled(FlipIcon)`
   justify-self: flex-end;
   margin: 0 10px;
   width: 20px;
-  @media (max-width: 500px) {
-    width: 15px;
-  }
 `;
 
 export const Header = styled.h2`
   color: white;
   font-weight: 400;
-  margin: 5px 30px;
+  margin: 10px 0;
   user-select: none;
-  @media (max-width: 500px) {
-    font-size: 18px;
+`;
+
+export const Wrapper = styled.div`
+  margin: 0 40px;
+  @media (max-width: 1150px) {
+    margin: auto;
+    max-width: 500px;
+  }
+  @media (max-width: 550px) {
+    width: 350px;
+  }
+  @media (max-width: 400px) {
+    width: 300px;
   }
 `;

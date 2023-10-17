@@ -6,11 +6,10 @@ export const Main = styled.main`
   margin: auto;
   max-width: 1200px;
   padding: 0 20px;
-  @media (max-width: 960px) {
+  @media (max-width: 1150px) {
     flex-direction: column;
-    max-width: 400px;
   }
-  @media (max-width: 460px) {
-    padding: 0;
+  @media (max-width: 500px) {
+    padding: 10px;
   }
 `;

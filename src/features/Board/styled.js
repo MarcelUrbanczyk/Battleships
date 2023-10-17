@@ -12,8 +12,20 @@ export const Block = styled.div`
     transform: scale(1.1);
   }
   @media (max-width: 1250px) {
-    height: 30px;
+    height: 35px;
+    width: 35px;
+  }
+  @media (max-width: 1150px) {
+    height: 50px;
+    width: 50px;
+  }
+  @media (max-width: 550px) {
+    width: 35px;
+    height: 35px;
+  }
+  @media (max-width: 400px) {
     width: 30px;
+    height: 30px;
   }
 `;
 
@@ -30,6 +42,15 @@ export const Container = styled.div`
     cursor: crosshair;
   }
   @media (max-width: 1250px) {
+    width: 350px;
+  }
+  @media (max-width: 1150px) {
+    width: 500px;
+  }
+  @media (max-width: 550px) {
+    width: 350px;
+  }
+  @media (max-width: 400px) {
     width: 300px;
   }
 `;
@@ -39,9 +60,8 @@ export const Header = styled.h2`
   font-size: 36px;
   font-weight: 400;
   margin: 10px;
-  @media (max-width: 500px) {
-    font-size: 24px;
-  }
+  text-align: center;
+  white-space: wrap;
 `;
 
 export const Wrapper = styled.div`

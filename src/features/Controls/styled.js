@@ -30,10 +30,14 @@ export const Controls = styled.div`
   height: 40px;
   justify-content: space-between;
   margin: 20px 40px;
-  @media (max-width: 500px) {
-    margin: 10px 40px;
+  @media (max-width: 1150px) {
+    margin: auto;
+    max-width: 500px;
   }
-  @media (max-width: 960px) {
-    margin: 10px 50px;
+  @media (max-width: 550px) {
+    width: 350px;
+  }
+  @media (max-width: 400px) {
+    width: 300px;
   }
 `;
