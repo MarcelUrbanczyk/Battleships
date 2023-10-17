@@ -3,11 +3,11 @@ import { placeShip } from "../utils/placeShips";
 import { setBoard, setShips, setDraggedShip, selectFlip } from "../gameSlice";
 import { getShipByName } from "../utils/getShip";
 
-const useHandleDropShipShip = () => {
+const useHandleDropShip = () => {
   const dispatch = useDispatch();
   const flip = useSelector(selectFlip);
 
-  const handleDrop = (
+  const handleDropShip = (
     ownerShips,
     draggedShipName,
     blockId,
@@ -45,4 +45,4 @@ const useHandleDropShipShip = () => {
   return handleDrop;
 };
 
-export default useHandleDropShipShip;
+export default useHandleDropShip;
