@@ -1,7 +1,7 @@
 import { initialShips } from "../initialShips";
+import { size } from "../size";
 
 const isPositionValid = (x, y, isVertical, shipSize, board) => {
-  const size = 10;
   if (
     x < 0 ||
     x >= size ||
@@ -42,7 +42,6 @@ export const placeShip = (board, startIndex, ship, isVertical) => {
 };
 
 export const placeShipsRandomly = () => {
-  const size = 10;
   const newBoard = Array(size * size).fill(null);
 
   for (const [index, ship] of initialShips.entries()) {

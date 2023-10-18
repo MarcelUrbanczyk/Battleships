@@ -1,3 +1,3 @@
-const size = 10;
+import { size } from "./size";
 
 export const initialBoard = Array.from({ length: size * size }).fill(null);
